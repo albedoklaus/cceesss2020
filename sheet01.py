@@ -5,6 +5,7 @@ Plots for exercises 1, 4 and 5
 
 import matplotlib.pyplot as plt
 import numpy as np
+import sympy
 
 
 def f1(u, params):
@@ -102,7 +103,17 @@ if __name__ == "__main__":
         plt.savefig("sheet01_ex4_mu={}.png".format(mu), dpi=300)
 
     # Exercise 5
-    for mu in [-1, 0, 1]:
+    # a)
+    u, mu = sympy.symbols("u, mu")
+    f = -u * ((u ** 2 - 1) ** 2 - mu - 1)
+    #f = mu - u ** 2
+    fixpoints = sympy.solve(f, u)
+    df = sympy.diff(f, u)
+    for fixpoint in fixpoints:
+        print(fixpoint, "->", df.subs({u: fixpoint}).simplify())
+
+    # c)
+    for mu in [-2, -1, -0.5, 0, 1]:
         plt.close()
         for u in np.linspace(-4, 4, 40):
             GraphT, GraphU = generate([u], 0, 0.001, explicitEuler, f5, params={"mu": mu}, steps=2000, min=-50, max=50)
