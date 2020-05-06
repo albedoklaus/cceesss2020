@@ -10,19 +10,21 @@ import numpy as np
 def f1(u, params):
     """System for exercise 1"""
 
-    return (u[1] - (1.8 * u[0]) ** 2 * np.exp(-u[0]), (0.7 + 0.5 * u[0]) ** (-2) - u[1])
+    u1 = u[0]
+    u2 = u[1]
+    return u2 - (1.8 * u1) ** 2 * np.exp(-u1), (0.7 + 0.5 * u1) ** (-2) - u2
 
 
 def f4(u, params):
     """System for exercise 4"""
 
-    return params["mu"] - u[0]**2
+    return params["mu"] - u ** 2
 
 
 def f5(u, params):
     """System for exercise 5"""
 
-    return -u[0] * ((u[0] ** 2 - 1) ** 2 - params["mu"] - 1)
+    return -u * ((u ** 2 - 1) ** 2 - params["mu"] - 1)
 
 
 def explicitEuler(f, u, deltaT):
@@ -69,7 +71,7 @@ if __name__ == "__main__":
         _, GraphU1, GraphU2 = generate([0, 0], 0, deltaT, explicitEuler, f1, steps=steps)
         plt.plot(GraphU1, GraphU2, label=r"$\Delta\tau=$" + str(deltaT), linewidth=0.3)
     plt.legend(loc="best")
-    plt.savefig("ex1a.png", dpi=300)
+    plt.savefig("sheet01_ex1a.png", dpi=300)
 
     # b) Square
     plt.close()
@@ -79,7 +81,7 @@ if __name__ == "__main__":
                 continue
             _, GraphU1, GraphU2 = generate([u1, u2], 0, 0.01, explicitEuler, f1)
             plt.plot(GraphU1, GraphU2, linewidth=0.3)
-    plt.savefig("ex1bsquare.png", dpi=300)
+    plt.savefig("sheet01_ex1bsquare.png", dpi=300)
 
     # b) Circle
     plt.close()
@@ -88,7 +90,7 @@ if __name__ == "__main__":
         u2 = 1 + np.sin(phi)
         _, GraphU1, GraphU2 = generate([u1, u2], 0, 0.01, explicitEuler, f1)
         plt.plot(GraphU1, GraphU2, linewidth=0.3)
-    plt.savefig("ex1bcircle.png", dpi=300)
+    plt.savefig("sheet01_ex1bcircle.png", dpi=300)
 
     # Exercise 4
     for mu in [-1, 0, 1]:
@@ -97,7 +99,7 @@ if __name__ == "__main__":
         for u in np.arange(-4, 4, 0.2):
             GraphT, GraphU = generate([u], 0, 0.001, explicitEuler, f4, params={"mu": mu}, steps=2000, min=-50, max=50)
             plt.plot(GraphT, GraphU, linewidth=0.3)
-        plt.savefig("ex4_mu={}.png".format(mu), dpi=300)
+        plt.savefig("sheet01_ex4_mu={}.png".format(mu), dpi=300)
 
     # Exercise 5
     for mu in [-1, 0, 1]:
@@ -105,4 +107,4 @@ if __name__ == "__main__":
         for u in np.linspace(-4, 4, 40):
             GraphT, GraphU = generate([u], 0, 0.001, explicitEuler, f5, params={"mu": mu}, steps=2000, min=-50, max=50)
             plt.plot(GraphT, GraphU, linewidth=0.3)
-        plt.savefig("ex5_mu={}.png".format(mu), dpi=300)
+        plt.savefig("sheet01_ex5_mu={}.png".format(mu), dpi=300)
