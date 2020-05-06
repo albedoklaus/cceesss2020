@@ -31,11 +31,11 @@ We chose step sizes $\Delta\tau$ of different orders of magnitude (from 0.0001 t
 
 ### (b)
 
-![](sheet01_ex1bsquare)
+![](sheet01_ex1bsquare.png)
 
 Placing the starting points on the edge of [0, 2]x[0, 2] leads to trajectories that are spiraling in. Because of this the trajectories tend to cluster when they started towards the corners of the given intervall.
 
-![](sheet01_ex1bcircle)
+![](sheet01_ex1bcircle.png)
 
 Placing the starting points on a circle leads to nearly uniformly distributed trajectories, but results in a similiar pattern. Only the fact that the fixpoint is not directly centered leads to deviations.
 
@@ -43,17 +43,17 @@ Placing the starting points on a circle leads to nearly uniformly distributed tr
 
 ## Exercise 4
 
-![](sheet01_ex4_mu=-1)
-![](sheet01_ex4_mu=0)
-![](sheet01_ex4_mu=1)
+![](sheet01_ex4_mu=-1.png)
+![](sheet01_ex4_mu=0.png)
+![](sheet01_ex4_mu=1.png)
 
 \newpage
 
 ## Exercise 5
 
-![](sheet01_ex5_mu=-1)
-![](sheet01_ex5_mu=0)
-![](sheet01_ex5_mu=1)
+![](sheet01_ex5_mu=-1.png)
+![](sheet01_ex5_mu=0.png)
+![](sheet01_ex5_mu=1.png)
 
 \newpage
 
