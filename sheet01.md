@@ -44,9 +44,11 @@ Placing the starting points on a circle leads to nearly uniformly distributed tr
 ## Exercise 4
 
 ![](sheet01_ex4_mu=-1.png)
+With $\mu < 0$ we have identified 2 different cases: the first one can be seen on the lower end of the starting points where there is no saddle point visible. The second case contains the inflection point in the trajectory. This inflection point hints the emergence of a fixpoint.
 ![](sheet01_ex4_mu=0.png)
+Here with $\mu = 0$ we have three cases dominated by the critical point at 0. First case is everything above 0 that gets attracted by the critical point. The second case is the static one at the fixpoint and the third case is described by the diverging trajectories below the fixpoint.
 ![](sheet01_ex4_mu=1.png)
-
+The emergence of two fixpoints for $\mu > 1$, one attracting and one repelling leads to six different cases. Again we have the trajectories above the attracting fixpoint that converge and the static case in the fixpoint. Additionally we have trajectories between both fixpoints that get attracted to the upper fixpoint. In the plot one cannot see the two types that are similar to the case with $\mu = -1$ with one including and one excluding the inflection point. Right next to the ones getting attracted by the upper fixpoint we have the static trajectory in the lower fixpoint followed by diverging trajectories to negative infinity. 
 \newpage
 
 ## Exercise 5
