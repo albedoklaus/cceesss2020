@@ -32,6 +32,8 @@ Placing the starting points on a circle leads to nearly uniformly distributed tr
 
 ![](sheet01_4hand.png)
 
+\newpage 
+
 System $\dot{u} = \mu - u^2$ is solvable by simple calculus:
 
 For $\mu < 0$ (with the substitution $x = \frac{u}{\sqrt{|\mu|}}$):
