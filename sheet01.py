@@ -1,22 +1,33 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def system1(u, params):
+def f1(u, params):
     """System for exercise 1"""
-    return [u[1] - (1.8 * u[0])**2 * np.exp(-u[0]), (0.7 + 0.5 * u[0])**(-2) - u[1]]
+    return (u[1] - (1.8 * u[0]) ** 2 * np.exp(-u[0]), (0.7 + 0.5 * u[0]) ** (-2) - u[1])
 
-def system4(u, params):
+def f4(u, params):
     """System for exercise 4"""
     return params["mu"] - u[0]**2
 
-def system5(u, params):
+def f5(u, params):
     """System for exercise 5"""
-    return -u[0] * ((u[0]**2 - 1)**2 - params["mu"] - 1)
+    return -u[0] * ((u[0] ** 2 - 1) ** 2 - params["mu"] - 1)
 
 def explicitEuler(f, u, deltaT):
+    """Euler method, numerical procedure for solving ordinary differential equations"""
     return u + deltaT * np.array(f(u))
 
-def graph(u0, t0, deltaT, integration, f, bounds={"steps" : 1000, "xmin" : -10, "xmax" : 10, "ymin" : -10, "ymax" : 10}, params=None):
+def iterate(u0, t0, deltaT, scheme, f, *, **cfg):
+    """Generate plot data via iteration"""
+
+    # Set default values for arguments
+    cfg.setdefault("steps", 1000)
+    cfg.setdefault("xmin", -10)
+    cfg.setdefault("xmax", 10)
+    cfg.setdefault("ymin", -10)
+    cfg.setdefault("ymax", 10)
+    cfg.setdefault("params", None)
+
     GraphT = [t0]
     GraphU1 = [u0[0]]
     GraphU2 = list()
@@ -28,16 +39,17 @@ def graph(u0, t0, deltaT, integration, f, bounds={"steps" : 1000, "xmin" : -10, 
             us = np.array([GraphU1[-1], GraphU2[-1]])
         else:
             us = np.array([GraphU1[-1]])
-        un = integration(lambda u: f(u, params), us, deltaT)
+        un = integration(lambda u: f(u, cfg["params"]), us, deltaT)
         GraphU1.append(un[0])
         if len(un) > 1:
             GraphU2.append(un[1])
 
-        if len(GraphT) > bounds["steps"]:
+        # Stop if number of steps is sufficient
+        if len(GraphT) > cfg["steps"]:
             break
-        if len(GraphU2) == 0 and (GraphU1[-1] > bounds["ymax"] or GraphU1[-1] < bounds["ymin"]):
+        if len(GraphU2) == 0 and (GraphU1[-1] > cfg["ymax"] or GraphU1[-1] < cfg["ymin"]):
             break
-        if len(GraphU2) > 0 and (GraphU1[-1] > bounds["xmax"] or GraphU1[-1] < bounds["xmin"] or GraphU2[-1] > bounds["ymax"] or GraphU2[-1] < bounds["ymin"]):
+        if len(GraphU2) > 0 and (GraphU1[-1] > cfg["xmax"] or GraphU1[-1] < cfg["xmin"] or GraphU2[-1] > cfg["ymax"] or GraphU2[-1] < cfg["ymin"]):
             break
 
     return GraphT, GraphU1, GraphU2
