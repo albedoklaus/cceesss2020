@@ -1,0 +1,104 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:buster
+    steps:
+      - name: Install dependencies
+        run: |
+          apt update
+          apt install -y git hub perl python wget
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cache
+        uses: actions/cache@v1
+        with:
+          path: /usr/local/texlive
+          key: texlive
+      - name: Install TeX Live
+        run: |
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)" || true
+          [ -x "$(command -v tlmgr)" ] && {
+            printf '%s\n' "Using cached installation of TeX Live"
+            exit
+          }
+          temp="$(mktemp -d)"
+          url=http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
+          wget -qO - "$url" | tar --strip-components=1 -C "$temp" -xzvf -
+          scheme="scheme-minimal"
+          printf '%s\n' "selected_scheme $scheme" "instopt_adjustpath 1" | tee -a "$temp/texlive.profile"
+          (cd "$temp" && ./install-tl -profile texlive.profile)
+          tlmgr install latex latex-bin latex-fonts latexconfig
+          #tlmgr install collection-latexrecommended collection-fontsrecommended
+          tlmgr install babel babel-english babel-german hyphen-german
+          tlmgr install latexmk biber texliveonfly
+      - name: Install pandoc
+        run: |
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)" || true
+          [ -x "$(command -v pandoc)" ] && {
+            printf '%s\n' "Using cached installation of pandoc"
+            exit
+          }
+          temp="$(mktemp -d)"
+          url=https://api.github.com/repos/jgm/pandoc/releases/latest
+          url="$(wget -qO - "$url" | tr '"' '\n' | grep '.*/download/.*-linux-amd64.tar.gz')"
+          wget -qO - "$url" | tar --strip-components=1 -C "$temp" -xzvf -
+          mv "$temp/bin/"* "$(cd /usr/local/texlive/*/bin/* && pwd)"
+      - name: Convert Markdown to TeX with pandoc
+        run: |
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)"
+          for metadata in metadata.yml metadata.yaml /dev/null
+          do
+            [ -f "$metadata" ] && break
+          done
+          printf '%s\n' "Reading metadata from $metadata"
+          for mdfile in *.md
+          do
+            printf '%s\n' "Run pandoc for $mdfile"
+            pandoc "$mdfile" --metadata-file="$metadata" --standalone -o "$(basename "$mdfile" .md).tex"
+          done
+      - name: Install required packages with texliveonfly
+        run: |
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)"
+          for texfile in *.tex
+          do
+            printf '%s\n' "Run texliveonfly for $texfile"
+            texliveonfly --compiler=pdflatex --arguments="-draftmode -interaction=nonstopmode" "$texfile"
+          done
+      - name: Build PDF files with latexmk
+        run: |
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)"
+          printf '%s\n' "Run latexmk *.pdf"
+          latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode -halt-on-error" *.tex
+          rm -rf build
+          mkdir -p build
+          mv *.pdf build
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: build
+          path: build
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Download artifacts
+        uses: actions/download-artifact@v1
+        with:
+          name: build
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          hub release delete latest || true
+          git tag -d latest || true
+          git push -d "https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}" latest || true
+          hub release create -m "Latest release" -m "https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" latest
+          for pdffile in build/*.pdf
+          do
+            hub release edit -m "" -a "$pdffile" latest
+          done
