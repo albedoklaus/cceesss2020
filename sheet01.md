@@ -1,7 +1,7 @@
 
 # Chaotic, Complex and Evolving Environmental Systems (CCEES)
 
-Alexander Kunkel , Michael Schenk, Aika Tada, Jonas Uhrig 
+Alexander Kunkel, Michael Schenk, Aika Tada, Jonas Uhrig 
 
 
 # Exercise Sheet 01
