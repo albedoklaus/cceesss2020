@@ -23,6 +23,10 @@ Beispielformeln falls nötig:
                     & = t_c + t_r p_-
 \end{align*}
 
+Beispielbild:
+
+![Beschreibung](ex1a.png)
+
 \newpage
 ## Aufgabe 2
 
