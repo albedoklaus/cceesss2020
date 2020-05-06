@@ -43,6 +43,8 @@ def generate(u0, t0, deltaT, method, f, **cfg):
     cfg.setdefault("xmax", 10)
     cfg.setdefault("ymin", -10)
     cfg.setdefault("ymax", 10)
+    cfg.setdefault("min", -10)
+    cfg.setdefault("max", 10)
 
     t = np.empty((cfg["steps"],))
     t[0] = t0
@@ -66,12 +68,14 @@ def generate(u0, t0, deltaT, method, f, **cfg):
         if len(un) > 1:
             GraphU2.append(un[1])
 
-        # TODO Kommentar
-        if len(GraphU2) == 0 and (GraphU1[-1] > cfg["ymax"] or GraphU1[-1] < cfg["ymin"]):
+        if any(u[i] < cfg["min"]) or any(u[i] > cfg["max"]):
             break
         # TODO Kommentar
-        if len(GraphU2) > 0 and (GraphU1[-1] > cfg["xmax"] or GraphU1[-1] < cfg["xmin"] or GraphU2[-1] > cfg["ymax"] or GraphU2[-1] < cfg["ymin"]):
-            break
+        #if len(GraphU2) == 0 and (GraphU1[-1] > cfg["ymax"] or GraphU1[-1] < cfg["ymin"]):
+        #    break
+        ## TODO Kommentar
+        #if len(GraphU2) > 0 and (GraphU1[-1] > cfg["xmax"] or GraphU1[-1] < cfg["xmin"] or GraphU2[-1] > cfg["ymax"] or GraphU2[-1] < cfg["ymin"]):
+        #    break
 
     t = t[:i + 1]
     u = u[:i + 1]
@@ -115,7 +119,7 @@ if __name__ == "__main__":
         plt.close()
         #for u in np.linspace(-4, 4, 40):
         for u in np.arange(-4, 4, 0.2):
-            GraphT, GraphU = generate([u], 0, 0.001, explicitEuler, f4, params={"mu": mu}, steps=2000, ymin=-50, ymax=50)
+            GraphT, GraphU = generate([u], 0, 0.001, explicitEuler, f4, params={"mu": mu}, steps=2000, ymin=-50, ymax=50, min=-50, max=50)
             plt.plot(GraphT, GraphU, linewidth=0.3)
         plt.savefig("ex4_mu={}.png".format(mu), dpi=300)
 
@@ -123,6 +127,6 @@ if __name__ == "__main__":
     for mu in [-1, 0, 1]:
         plt.close()
         for u in np.linspace(-4, 4, 40):
-            GraphT, GraphU = generate([u], 0, 0.001, explicitEuler, f5, params={"mu": mu}, steps=2000, ymin=-50, ymax=50)
+            GraphT, GraphU = generate([u], 0, 0.001, explicitEuler, f5, params={"mu": mu}, steps=2000, ymin=-50, ymax=50, min=-50, max=50)
             plt.plot(GraphT, GraphU, linewidth=0.3)
         plt.savefig("ex5_mu={}.png".format(mu), dpi=300)
