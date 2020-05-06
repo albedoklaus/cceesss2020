@@ -30,7 +30,7 @@ def f5(u, params):
 def explicitEuler(f, u, deltaT):
     """Euler method, numerical procedure for solving ordinary differential equations"""
 
-    return u + deltaT * np.array(f(u))
+    return np.array(u) + deltaT * np.array(f(u))
 
 
 def generate(u0, t0, deltaT, method, f, **cfg):
@@ -44,45 +44,54 @@ def generate(u0, t0, deltaT, method, f, **cfg):
     cfg.setdefault("ymin", -10)
     cfg.setdefault("ymax", 10)
 
+    t = np.empty((cfg["steps"],))
+    t[0] = t0
+    u = np.empty((cfg["steps"], len(u0)))
+    u[0] = u0
     GraphT = [t0]
     GraphU1 = [u0[0]]
     GraphU2 = list()
     if len(u0) == 2:
         GraphU2.append(u0[1])
-    while True:
+    for i in range(1, cfg["steps"]):
+        t[i] = t[i - 1] + deltaT
         GraphT.append(GraphT[-1] + deltaT)
         if len(GraphU2) > 0:
             us = np.array([GraphU1[-1], GraphU2[-1]])
         else:
             us = np.array([GraphU1[-1]])
         un = method(lambda u: f(u, cfg["params"]), us, deltaT)
+        u[i] = method(lambda u: f(u, cfg["params"]), u[i - 1], deltaT)
         GraphU1.append(un[0])
         if len(un) > 1:
             GraphU2.append(un[1])
 
-        # Stop if number of steps is sufficient
-        if len(GraphT) > cfg["steps"]:
-            break
+        # TODO Kommentar
         if len(GraphU2) == 0 and (GraphU1[-1] > cfg["ymax"] or GraphU1[-1] < cfg["ymin"]):
             break
+        # TODO Kommentar
         if len(GraphU2) > 0 and (GraphU1[-1] > cfg["xmax"] or GraphU1[-1] < cfg["xmin"] or GraphU2[-1] > cfg["ymax"] or GraphU2[-1] < cfg["ymin"]):
             break
 
+    t = t[:i + 1]
+    u = u[:i + 1]
+    return (t, *[u[:, i] for i in range(len(u0))])
     return GraphT, GraphU1, GraphU2
 
 
 if __name__ == "__main__":
 
-    # exercise 1
-    # a
+    # Exercise 1
+    # a)
     plt.close()
     for deltaT in np.geomspace(0.0001, 1, 5):
-        _, GraphU1, GraphU2 = generate([0, 0], 0, deltaT, explicitEuler, f1, steps=100/deltaT)
+        steps = int(100 / deltaT)
+        _, GraphU1, GraphU2 = generate([0, 0], 0, deltaT, explicitEuler, f1, steps=steps)
         plt.plot(GraphU1, GraphU2, label=r"$\Delta\tau=$" + str(deltaT), linewidth=0.3)
     plt.legend(loc="best")
     plt.savefig("ex1a.png", dpi=300)
 
-    #b
+    # b) Square
     plt.close()
     for u1 in np.linspace(0, 2, 10):
         for u2 in np.linspace(0, 2, 10):
@@ -92,6 +101,7 @@ if __name__ == "__main__":
             plt.plot(GraphU1, GraphU2, linewidth=0.3)
     plt.savefig("ex1bsquare.png", dpi=300)
 
+    # b) Circle
     plt.close()
     for phi in np.linspace(0, 2*np.pi, 16):
         u1 = 1 + np.cos(phi)
@@ -100,19 +110,19 @@ if __name__ == "__main__":
         plt.plot(GraphU1, GraphU2, linewidth=0.3)
     plt.savefig("ex1bcircle.png", dpi=300)
 
-    # exercise 4
+    # Exercise 4
     for mu in [-1, 0, 1]:
         plt.close()
         #for u in np.linspace(-4, 4, 40):
         for u in np.arange(-4, 4, 0.2):
-            GraphT, GraphU, _ = generate([u], 0, 0.001, explicitEuler, f4, params={"mu": mu}, steps=2000, ymin=-50, ymax=50)
+            GraphT, GraphU = generate([u], 0, 0.001, explicitEuler, f4, params={"mu": mu}, steps=2000, ymin=-50, ymax=50)
             plt.plot(GraphT, GraphU, linewidth=0.3)
         plt.savefig("ex4_mu={}.png".format(mu), dpi=300)
 
-    # exercise 5
+    # Exercise 5
     for mu in [-1, 0, 1]:
         plt.close()
         for u in np.linspace(-4, 4, 40):
-            GraphT, GraphU, _ = generate([u], 0, 0.001, explicitEuler, f5, params={"mu": mu}, steps=2000, ymin=-50, ymax=50)
+            GraphT, GraphU = generate([u], 0, 0.001, explicitEuler, f5, params={"mu": mu}, steps=2000, ymin=-50, ymax=50)
             plt.plot(GraphT, GraphU, linewidth=0.3)
         plt.savefig("ex5_mu={}.png".format(mu), dpi=300)
