@@ -60,7 +60,7 @@ With $\mu = -1$ the we can see the emergence of two critical fixpoints above an 
 ![](sheet01_ex5_mu=-0.5.png)
 With $\mu$ between -1 and 0 the two critical fixpoints splitted up into a repelling one on the side to the center fixpoint and an attracting fixpoint on the outside each.
 ![](sheet01_ex5_mu=0.png)
-At $\mu = 0$ both outer fixpoints stay attractive while the inner two repelling ones merge with the previous attractive one at 0 and form a .... fixpoint.
+At $\mu = 0$ both outer fixpoints stay attractive while the inner two repelling ones merge with the previous attractive one at 0 and form a weakly repelling fixpoint.
 ![](sheet01_ex5_mu=1.png)
 For $\mu > 0$ we have a repelling fixpoint at 0 and the two outer attractive fixpoints.
 \newpage
