@@ -41,7 +41,7 @@ The emergence of two fixpoints for $\mu > 1$, one attracting and one repelling l
 
 ![](sheet01_ex5_mu=-2.png)
 
-Here you can see a single attreacting fixpoint at 0. 
+Here you can see a single attracting fixpoint at 0. 
 
 ![](sheet01_ex5_mu=-1.png)
 
