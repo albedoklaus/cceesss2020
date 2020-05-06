@@ -38,13 +38,25 @@ Placing the starting points on the edge of [0, 2]x[0, 2] leads to trajectories t
 ![](sheet01_ex1bcircle)
 
 Placing the starting points on a circle leads to nearly uniformly distributed trajectories, but results in a similiar pattern. Only the fact that the fixpoint is not directly centered leads to deviations.
+
 \newpage
+
 ## Exercise 4
-![](sheet01_ex4)
+
+![](sheet01_ex4_mu=-1)
+![](sheet01_ex4_mu=0)
+![](sheet01_ex4_mu=1)
+
 \newpage
+
 ## Exercise 5
-![](sheet01_ex5)
+
+![](sheet01_ex5_mu=-1)
+![](sheet01_ex5_mu=0)
+![](sheet01_ex5_mu=1)
+
 \newpage
+
 ## Appendix
 
 \lstinputlisting[language=python]{sheet01.py}
