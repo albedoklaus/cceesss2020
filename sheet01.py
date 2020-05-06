@@ -86,7 +86,7 @@ if __name__ == "__main__":
 
     # b) Circle
     plt.close()
-    for phi in np.linspace(0, 2*np.pi, 16):
+    for phi in np.linspace(0, 2 * np.pi, 16):
         u1 = 1 + np.cos(phi)
         u2 = 1 + np.sin(phi)
         _, GraphU1, GraphU2 = generate([u1, u2], 0, 0.01, explicitEuler, f1)
@@ -96,7 +96,6 @@ if __name__ == "__main__":
     # Exercise 4
     for mu in [-1, 0, 1]:
         plt.close()
-        #for u in np.linspace(-4, 4, 40):
         for u in np.arange(-4, 4, 0.2):
             GraphT, GraphU = generate([u], 0, 0.001, explicitEuler, f4, params={"mu": mu}, steps=2000, min=-50, max=50)
             plt.plot(GraphT, GraphU, linewidth=0.3)
@@ -115,7 +114,7 @@ if __name__ == "__main__":
     # c)
     for mu in [-2, -1, -0.5, 0, 1]:
         plt.close()
-        for u in np.linspace(-4, 4, 40):
+        for u in np.arange(-4, 4, 0.2):
             GraphT, GraphU = generate([u], 0, 0.001, explicitEuler, f5, params={"mu": mu}, steps=2000, min=-50, max=50)
             plt.plot(GraphT, GraphU, linewidth=0.3)
         plt.savefig("sheet01_ex5_mu={}.png".format(mu), dpi=300)
