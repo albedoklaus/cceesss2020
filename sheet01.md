@@ -1,7 +1,8 @@
 Chaotic, Complex and Evolving Environmental Systems (CCEES)
 
-# Sheet 1
+# Exercise Sheet 01
 
+\newpage
 ## Exercise 1
 
 ### (a)
@@ -24,6 +25,9 @@ Placing the starting points on a circle leads to nearly uniformly distributed tr
 
 ## Exercise 4
 
+![](sheet01_4hand.png)
+\newpage
+
 ![](sheet01_ex4_mu=-1.png)
 
 With $\mu < 0$ we have identified 2 different cases: the first one can be seen on the lower end of the starting points where there is no saddle point visible. The second case contains the inflection point in the trajectory. This inflection point hints the emergence of a fixpoint.
@@ -38,6 +42,9 @@ The emergence of two fixpoints for $\mu > 1$, one attracting and one repelling l
 \newpage
 
 ## Exercise 5
+
+![](sheet01_5hand.png)
+\newpage
 
 ![](sheet01_ex5_mu=-2.png)
 
