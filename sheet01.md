@@ -32,6 +32,30 @@ Placing the starting points on a circle leads to nearly uniformly distributed tr
 
 ![](sheet01_4hand.png)
 
+System $\dot{u} = \mu - u^2$ is solvable by simple calculus:
+
+For $\mu < 0$ (with the substitution $x = \frac{u}{\sqrt{|\mu|}}$):
+
+$$
+    \dfrac{du}{dt} = \mu - u^2\\
+    \int_0^t dt' = \int_{u(0)}^{u(t)} \dfrac{du}{\mu-u^2}\\
+    \rightarrow t = -\dfrac{1}{|\mu|}\int \dfrac{\sqrt{|\mu|} dx}{1+x^2} = -\dfrac{1}{\sqrt{|\mu|}}\arctan(\dfrac{u}{\sqrt{|\mu|}})+const
+$$
+
+For $\mu = 0$:
+
+$$
+    \rightarrow t = -\int \dfrac{du}{u^2} = \dfrac{1}{u}+const
+$$
+
+For $\mu > 0$:
+
+$$
+    \rightarrow t = \dfrac{1}{\mu}\int \dfrac{\sqrt{\mu} dx}{1-x^2} = \dfrac{1}{\sqrt{\mu}}\text{artanh}(\dfrac{u}{\sqrt{\mu}})+const
+$$
+
+Or, as shown below, by numerical integration.
+
 \newpage
 
 ![](sheet01_ex4_mu=-1.png)
