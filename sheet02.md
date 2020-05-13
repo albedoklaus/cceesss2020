@@ -20,7 +20,7 @@ This linear graph is visible in the plot above: For $u_0 = 0.1$, we can calculat
 a slope of
 
 $$
-u_0 (1-u_0)|_{u_0=0.1} = 0.1 \cdot 0.9 = 0.09.
+\left. u_0 (1-u_0) \right|_{u_0=0.1} = 0.1 \cdot 0.9 = 0.09.
 $$
 
 ## $u_0 = 0.5$
