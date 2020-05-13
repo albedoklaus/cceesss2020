@@ -97,6 +97,6 @@ are both $0.2$ from $0.5$.
 
 ## Animated plot
 
-See https://imgur.com/hGTg1gT or direct video link https://i.imgur.com/hGTg1gT.mp4
+See [https://imgur.com/hGTg1gT](https://imgur.com/hGTg1gT) or direct video link [https://i.imgur.com/hGTg1gT.mp4](https://i.imgur.com/hGTg1gT.mp4)
 
 The animation validates our findings from above.
