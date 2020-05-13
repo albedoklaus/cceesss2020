@@ -82,10 +82,22 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 fig = plt.figure(figsize=(11.69, 8.27), dpi=200)
+plt.xlabel(r"$\mu$")
+plt.ylabel(r"$u$")
+plt.ylim(0, 1)
+plt.xlim(0,4)
+plt.title(r'Bifurcation diagram for logistic map')
+plt.fill_between([3, 0], [1, 1],
+                     alpha=0.1, label='stationary')
+plt.fill_between([3.56995, 3], [1, 1],
+                     alpha=0.1, label='periodic')
+plt.fill_between([4, 3.56995], [1, 1],
+                     alpha=0.1, label='chaotic')
+plt.legend()
 
 artists = []
-for u_0 in np.linspace(0.1, 0.9, 30):
-    mu_result, u_result = compute_bifurcation(N_sample=2, u_0=u_0)
+for u_0 in np.linspace(0.1, 0.9, 50):
+    mu_result, u_result = compute_bifurcation(N_sample=10, u_0=u_0)
     artists.append(plt.plot(mu_result, u_result, linestyle="", marker=".", color="red"))
 
 ani = animation.ArtistAnimation(fig, artists, interval=100, blit=True)
