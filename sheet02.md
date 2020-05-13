@@ -47,7 +47,11 @@ $$
 The corresponding linear graph is visible in the plot above and can
 easily be recognised. A similar graph will also be visible in each of
 the following plots.
-At the transition from the stationary to the periodic regime one can see that the number of iterations we chose were not enough to converge to the single stationary point on the left and the two periodic points on the right side of the transition.
+
+At the transition from the stationary to the periodic regime one can
+see that the number of iterations we chose were not enough to converge
+to the single stationary point on the left and the two periodic
+points on the right side of the transition.
 
 \newpage
 
