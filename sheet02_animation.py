@@ -98,9 +98,9 @@ plt.legend(loc="upper left")
 
 artists = []
 
-geom = np.geomspace(1e-5, 0.3, 10)
-lins = np.linspace(0.3, 0.5, 10)
-vals = [0, *geom, *lins, *((1-lins)[::-1]), *((1-geom)[::-1]), 1]
+geom = np.geomspace(1e-5, 0.3, 10, endpoint=False)
+lins = np.linspace(0.3, 0.5, 10, endpoint=False)
+vals = [0, *geom, *lins, 0.5, *((1-lins)[::-1]), *((1-geom)[::-1]), 1]
 print(vals)
 #for u_0 in np.linspace(0, 1, 50):
 for u_0 in vals:
