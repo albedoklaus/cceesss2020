@@ -98,7 +98,12 @@ plt.legend(loc="upper left")
 
 artists = []
 
-for u_0 in np.linspace(0, 1, 50):
+geom = np.geomspace(1e-5, 0.3, 10)
+lins = np.linspace(0.3, 0.5, 10)
+vals = [0, *geom, *lins, *((1-lins)[::-1]), *((1-geom)[::-1]), 1]
+print(vals)
+#for u_0 in np.linspace(0, 1, 50):
+for u_0 in vals:
     text = plt.text(0.2, 0.83, f"$u_0 = {u_0:.2f}$")
     mu_result, u_result = compute_bifurcation(N_sample=2, u_0=u_0)
     #plot = plt.plot(mu_result, u_result, linestyle="", marker=".", markersize=0.1, color="black")
