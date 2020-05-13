@@ -1,6 +1,6 @@
 # Exercise 3
 
-## $u_0 = 0.1$
+## Plot for $u_0 = 0.1$
 
 ![](sheet02_mu0.1.png)
 
@@ -23,17 +23,17 @@ $$
 \left. u_0 (1-u_0) \right|_{u_0=0.1} = 0.1 \cdot 0.9 = 0.09.
 $$
 
-## $u_0 = 0.5$
+## Plot for $u_0 = 0.5$
 
 ![](sheet02_mu0.5.png)
 
 Special case $u_0 = 0.5$.
 
-## $u_0 = 0.3$
+## Plot for $u_0 = 0.3$
 
 ![](sheet02_mu0.3.png)
 
-## $u_0 = 0.7$
+## Plot for $u_0 = 0.7$
 
 ![](sheet02_mu0.7.png)
 
