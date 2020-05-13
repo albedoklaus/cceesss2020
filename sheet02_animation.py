@@ -82,6 +82,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 fig = plt.figure(figsize=(11.69, 8.27), dpi=200)
+ax = fig.add_subplot(111)
 plt.xlabel(r"$\mu$")
 plt.ylabel(r"$u$")
 plt.ylim(0, 1)
@@ -93,13 +94,16 @@ plt.fill_between([3.56995, 3], [1, 1],
                      alpha=0.1, label='periodic')
 plt.fill_between([4, 3.56995], [1, 1],
                      alpha=0.1, label='chaotic')
-plt.legend()
+plt.legend(loc="upper left")
 
 artists = []
+
 for u_0 in np.linspace(0, 1, 50):
+    text = plt.text(0.2, 0.83, f"$u_0 = {u_0:.2f}$")
     mu_result, u_result = compute_bifurcation(N_sample=2, u_0=u_0)
-    artists.append(plt.plot(mu_result, u_result, linestyle="", marker=".", markersize=0.1, color="black"))
+    #plot = plt.plot(mu_result, u_result, linestyle="", marker=".", markersize=0.1, color="black")
+    plot = plt.scatter(mu_result, u_result, s=0.5, lw=0.2, marker='.', color='black')
+    artists.append([plot, text])
 
 ani = animation.ArtistAnimation(fig, artists, interval=100, blit=True)
 ani.save("animation.mp4")
-
