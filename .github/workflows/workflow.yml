@@ -16,7 +16,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: /usr/local/texlive
-          key: texlive
+          key: texlive-${{ github.sha }}
+          restore-keys: |
+            texlive-
       - name: Install TeX Live
         run: |
           PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)" || true
