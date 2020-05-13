@@ -96,9 +96,9 @@ plt.fill_between([4, 3.56995], [1, 1],
 plt.legend()
 
 artists = []
-for u_0 in np.linspace(0.1, 0.9, 50):
-    mu_result, u_result = compute_bifurcation(N_sample=10, u_0=u_0)
-    artists.append(plt.plot(mu_result, u_result, linestyle="", marker=".", color="red"))
+for u_0 in np.linspace(0, 1, 50):
+    mu_result, u_result = compute_bifurcation(N_sample=2, u_0=u_0)
+    artists.append(plt.plot(mu_result, u_result, linestyle="", marker=".", markersize=0.1, color="black"))
 
 ani = animation.ArtistAnimation(fig, artists, interval=100, blit=True)
 ani.save("animation.mp4")
