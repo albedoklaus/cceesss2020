@@ -1,16 +1,6 @@
+# Exercise 1
 
-# Chaotic, Complex and Evolving Environmental Systems (CCEES)
-
-Alexander Kunkel, Michael Schenk, Aika Tada, Jonas Uhrig 
-
-
-# Exercise Sheet 01
-
-\newpage
-
-## Exercise 1
-
-### (a)
+## (a)
 
 ![](sheet01_ex1a.png)
 
@@ -18,7 +8,7 @@ We chose step sizes $\Delta\tau$ of different orders of magnitude (from 0.0001 t
 
 \newpage
 
-### (b)
+## (b)
 
 ![](sheet01_ex1bsquare.png)
 
@@ -32,7 +22,7 @@ Placing the starting points on a circle leads to nearly uniformly distributed tr
 
 \newpage
 
-## Exercise 4
+# Exercise 4
 
 ![](sheet01_4hand.png)
 
@@ -82,7 +72,7 @@ The emergence of two fixpoints for $\mu > 0$, for example $\mu = 1$ as seen in t
 
 \newpage
 
-## Exercise 5
+# Exercise 5
 
 ![](sheet01_5hand.png)
 
@@ -118,6 +108,6 @@ For $\mu > 0$ we have a repelling fixpoint at 0 and the two outer attractive fix
 
 \newpage
 
-## Appendix
+# Appendix
 
 \lstinputlisting[language=python]{sheet01.py}
