@@ -64,6 +64,8 @@ jobs:
       - name: Install required packages with texliveonfly
         run: |
           PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)"
+          echo "$PATH"
+          ls "$(cd /usr/local/texlive/*/bin/* && pwd)"
           for texfile in *.tex
           do
             printf '%s\n' "Run texliveonfly for $texfile"
