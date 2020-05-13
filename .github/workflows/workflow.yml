@@ -65,6 +65,10 @@ jobs:
         run: |
           PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)"
           echo "$PATH"
+          ls -l /usr/local/texlive/2020
+          echo "$(cd /usr/local/texlive/*/bin/* && pwd)"
+          ls "$(cd /usr/local/texlive && pwd)"
+          ls "$(cd /usr/local/texlive/*/bin && pwd)"
           ls "$(cd /usr/local/texlive/*/bin/* && pwd)"
           for texfile in *.tex
           do
