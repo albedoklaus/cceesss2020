@@ -1,16 +1,34 @@
 # Exercise 3
 
-In the following plots, we're still looking at the same logistic map from the previous
+In the following plots, we're still examining the same logistic map from the previous
 exercise - however, this time, we don't discard the first 4000 iterations. Therefore,
 the following observations and explanations focus on the details which are unique to
 the first few iterations of the logistic map and we won't repeat what was already
-mentioned in the previous exercise, yet also applies here.
+mentioned in the previous exercise, even if it naturally applies here, as well.
+
+The main observation we can make is, that with each iteration, as expected, the
+path converges more and more towards the curve we have seen after the spin-up
+phase of 4000 iterations from exercise 2.
+
+For the logistic map
+$$
+x_{n+1} = r x_n (1-x_n)
+$$
+
+we can find a fixpoint which very well visible in the following plots. It is
+shared by each path from the different sampled iterations and can be calculated
+with
+$$
+u \overset{!}{=} \mu u (1-u) \Leftrightarrow \mu = \frac{1}{1-u}
+$$
 
 ## Plot for $u_0 = 0.1$
 
 ![](sheet02_mu0.1.png)
 
-For the logistic map
+We can see the fixpoint at $\mu = \frac{1}{1-u} = 1.\overline{1}$.
+
+Additionally, for the logistic map
 $$
 x_{n+1} = r x_n (1-x_n)
 $$
@@ -26,7 +44,8 @@ $$
 $$
 
 The corresponding linear graph is visible in the plot above and can
-easily be recognised.
+easily be recognised. A similar graph will also be visible in each of
+the following plots.
 
 \newpage
 
@@ -34,7 +53,13 @@ easily be recognised.
 
 ![](sheet02_mu0.5.png)
 
-Special case $u_0 = 0.5$.
+We can see the fixpoint at $\mu = \frac{1}{1-u} = 2$.
+
+For $u_0 = 0.5$ we observe a special case: The mentioned linear graph
+of the first iteration is at its maximum out of all values for
+$u_0$ with a slope of $0.25$. It makes sense that this maximum is
+reached at $0.5$ due to the symmetry of the logistic map. Regarding
+that symmetry, see the following two plots.
 
 \newpage
 
