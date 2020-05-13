@@ -104,7 +104,8 @@ vals = [0, *geom, *lins, 0.5, *((1-lins)[::-1]), *((1-geom)[::-1]), 1]
 print(vals)
 #for u_0 in np.linspace(0, 1, 50):
 for u_0 in vals:
-    text = plt.text(0.2, 0.83, f"$u_0 = {u_0:.2f}$")
+    #text = plt.text(0.2, 0.83, f"$u_0 = {u_0:.2f}$")
+    text = plt.text(0.08, 0.83, f"$u_0 = {u_0:.2e}$")
     mu_result, u_result = compute_bifurcation(N_sample=2, u_0=u_0)
     #plot = plt.plot(mu_result, u_result, linestyle="", marker=".", markersize=0.1, color="black")
     plot = plt.scatter(mu_result, u_result, s=0.5, lw=0.2, marker='.', color='black')
