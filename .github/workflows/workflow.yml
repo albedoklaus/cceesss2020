@@ -21,7 +21,7 @@ jobs:
             texlive-
       - name: Install TeX Live
         run: |
-          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/*/. && pwd)" || true
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/x86_64-linux && pwd)" || true
           [ -x "$(command -v tlmgr)" ] && {
             printf '%s\n' "Using cached installation of TeX Live"
             exit
@@ -38,7 +38,7 @@ jobs:
           tlmgr install latexmk biber texliveonfly
       - name: Install pandoc
         run: |
-          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/*/. && pwd)" || true
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/x86_64-linux && pwd)" || true
           [ -x "$(command -v pandoc)" ] && {
             printf '%s\n' "Using cached installation of pandoc"
             exit
@@ -47,10 +47,10 @@ jobs:
           url=https://api.github.com/repos/jgm/pandoc/releases/latest
           url="$(wget -qO - "$url" | tr '"' '\n' | grep '.*/download/.*-linux-amd64.tar.gz')"
           wget -qO - "$url" | tar --strip-components=1 -C "$temp" -xzvf -
-          mv "$temp/bin/"* "$(cd /usr/local/texlive/*/bin/* && pwd)"
+          mv "$temp/bin/"* "$(cd /usr/local/texlive/*/bin/x86_64-linux && pwd)"
       - name: Convert Markdown to TeX with pandoc
         run: |
-          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/*/. && pwd)"
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/x86_64-linux && pwd)"
           for metadata in metadata.yml metadata.yaml /dev/null
           do
             [ -f "$metadata" ] && break
@@ -63,13 +63,7 @@ jobs:
           done
       - name: Install required packages with texliveonfly
         run: |
-          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/*/. && pwd)"
-          echo "$PATH"
-          ls -l /usr/local/texlive/2020/bin
-          echo "$(cd /usr/local/texlive/*/bin/* && pwd)"
-          ls "$(cd /usr/local/texlive && pwd)"
-          ls "$(cd /usr/local/texlive/*/bin && pwd)"
-          ls "$(cd /usr/local/texlive/*/bin/* && pwd)"
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/x86_64-linux && pwd)"
           for texfile in *.tex
           do
             printf '%s\n' "Run texliveonfly for $texfile"
@@ -77,7 +71,7 @@ jobs:
           done
       - name: Build PDF files with latexmk
         run: |
-          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/*/. && pwd)"
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/x86_64-linux && pwd)"
           printf '%s\n' "Run latexmk *.pdf"
           latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode -halt-on-error" *.tex
           rm -rf build
