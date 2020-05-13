@@ -21,7 +21,7 @@ jobs:
             texlive-
       - name: Install TeX Live
         run: |
-          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)" || true
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/*/. && pwd)" || true
           [ -x "$(command -v tlmgr)" ] && {
             printf '%s\n' "Using cached installation of TeX Live"
             exit
@@ -38,7 +38,7 @@ jobs:
           tlmgr install latexmk biber texliveonfly
       - name: Install pandoc
         run: |
-          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)" || true
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/*/. && pwd)" || true
           [ -x "$(command -v pandoc)" ] && {
             printf '%s\n' "Using cached installation of pandoc"
             exit
@@ -50,7 +50,7 @@ jobs:
           mv "$temp/bin/"* "$(cd /usr/local/texlive/*/bin/* && pwd)"
       - name: Convert Markdown to TeX with pandoc
         run: |
-          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)"
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/*/. && pwd)"
           for metadata in metadata.yml metadata.yaml /dev/null
           do
             [ -f "$metadata" ] && break
@@ -63,7 +63,7 @@ jobs:
           done
       - name: Install required packages with texliveonfly
         run: |
-          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)"
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/*/. && pwd)"
           echo "$PATH"
           ls -l /usr/local/texlive/2020
           echo "$(cd /usr/local/texlive/*/bin/* && pwd)"
@@ -77,7 +77,7 @@ jobs:
           done
       - name: Build PDF files with latexmk
         run: |
-          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/* && pwd)"
+          PATH="${PATH}:$(cd /usr/local/texlive/*/bin/*/. && pwd)"
           printf '%s\n' "Run latexmk *.pdf"
           latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode -halt-on-error" *.tex
           rm -rf build
