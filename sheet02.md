@@ -87,3 +87,11 @@ $$
 
 This is shown in the two plots for $u_0 = 0.3$ and $u_0 = 0.7$ above, which
 are both $0.2$ from $0.5$.
+
+\newpage
+
+## Animated plot
+
+See https://imgur.com/hGTg1gT or direct video link https://i.imgur.com/hGTg1gT.mp4
+
+The animation validates our findings from above.
