@@ -15,7 +15,7 @@ $$
 x_{n+1} = r x_n (1-x_n)
 $$
 
-we can find a fixpoint which is very well visible in the following plots. It's value
+we can find a fixpoint which is very well visible in the following plots. Its value
 is the value of the initial $u_0$ itself and it is therefore
 shared by each path from the different sampled iterations. Its corresponding $\mu$
 value can be calculated with
