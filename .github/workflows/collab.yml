@@ -11,12 +11,10 @@ jobs:
     container:
       image: debian:buster
     steps:
-      - name: Install dependencies
+      - name: Execute operations
         run: |
           apt update
           apt install -y git python3 wordnet
-      - name: Clone collab repo
-        run: |
           private_key="$(pwd)/id_ed25519"
           printf '%s\n' "$COLLAB_DEPLOY_KEY" | base64 --decode > "$private_key"
           md5sum "$private_key"
@@ -24,9 +22,6 @@ jobs:
           export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -i \"$private_key\""
           git clone "git@github.com:$COLLAB_REPOSITORY" "$COLLAB_REPOSITORY"
           git clone "git@github.com:$GITHUB_REPOSITORY.git" "$GITHUB_REPOSITORY"
-          find .
-      - name: Generate operations
-        run: |
           python3 - << EOF
           import hashlib
           import os
@@ -72,8 +67,6 @@ jobs:
           os.system("cd '{}' && git config user.name '{}' && git config user.email '{}'".format(os.environ["COLLAB_REPOSITORY"], author, author))
           os.system("cd '{}' && git add -A && git commit -m '{}'".format(os.environ["COLLAB_REPOSITORY"], commit))
           EOF
-      - name: Execute operations
-        run: |
           cd "$COLLAB_REPOSITORY"
           git status
           git push
