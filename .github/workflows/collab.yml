@@ -9,7 +9,7 @@ jobs:
       - name: Install dependencies
         run: |
           apt update
-          apt install -y python3 wordnet
+          apt install -y git python3 wordnet
       - name: Generate operation name
         run: |
           python3 - << EOF
