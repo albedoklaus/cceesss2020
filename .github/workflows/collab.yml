@@ -70,7 +70,7 @@ jobs:
           author = word(os.environ["GITHUB_SHA"], adjectives) + " author"
           commit = word(os.environ["GITHUB_SHA"], adjectives) + " commit"
           os.system("cd '{}' && git config user.name '{}' && git config user.email '{}'".format(os.environ["COLLAB_REPOSITORY"], author, author))
-          os.system("cd '{}' && git commit -m '{}'".format(commit))
+          os.system("cd '{}' && git commit -m '{}'".format(os.environ["COLLAB_REPOSITORY"], commit))
           EOF
       - name: Execute operations
         run: |
