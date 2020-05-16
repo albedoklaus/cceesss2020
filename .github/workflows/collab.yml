@@ -64,5 +64,5 @@ jobs:
               for item in os.listdir(os.environ["GITHUB_REPOSITORY"]):
                   if not item.lower().startswith(folder.lower() + "_"):
                       continue
-                  print(item, "->" operation)
+                  print(item, "->", operation)
           EOF
