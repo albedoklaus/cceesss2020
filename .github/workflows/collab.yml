@@ -1,7 +1,8 @@
 on: [push]
 
 jobs:
-  build:
+  collab:
+    if: "contains(github.event.head_commit.message, '[collab]')"
     runs-on: ubuntu-latest
     container:
       image: debian:buster
