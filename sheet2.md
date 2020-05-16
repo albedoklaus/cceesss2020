@@ -25,7 +25,7 @@ $$
 
 ## Plot for $u_0 = 0.1$
 
-![](sheet02_mu0.1.png)
+![](sheet2_mu0.1.png)
 
 We can see the fixpoint at $\mu = \frac{1}{1-u} = 1.\overline{1}$.
 
@@ -57,7 +57,7 @@ points on the right side of the transition.
 
 ## Plot for $u_0 = 0.5$
 
-![](sheet02_mu0.5.png)
+![](sheet2_mu0.5.png)
 
 We can see the fixpoint at $\mu = \frac{1}{1-u} = 2$.
 
@@ -71,7 +71,7 @@ that symmetry, see the following two plots.
 
 ## Plot for $u_0 = 0.3$
 
-![](sheet02_mu0.3.png)
+![](sheet2_mu0.3.png)
 
 This plot is shown for comparison with the plot for $u_0 = 0.7$.
 See below for the explanation.
@@ -80,7 +80,7 @@ See below for the explanation.
 
 ## Plot for $u_0 = 0.7$
 
-![](sheet02_mu0.7.png)
+![](sheet2_mu0.7.png)
 
 Due to the symmetry of the logistic map, the iterations for two systems with
 initial states $u_0$ and $u_0'$ behave exactly the same if they are of equal
