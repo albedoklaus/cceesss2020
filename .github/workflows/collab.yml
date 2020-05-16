@@ -40,3 +40,6 @@ jobs:
           word3 = word("word2", nouns)
           print(word1, word2, word3)
           EOF
+      - name: Clone collab repo
+        run: |
+          git clone git@github.com:Xerox16/CCEES-Exercises.git
