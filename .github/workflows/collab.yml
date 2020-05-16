@@ -31,6 +31,7 @@ jobs:
           import hashlib
           import os
           import secrets
+          import shutil
           def index(filename):
               result = []
               with open(filename) as fh:
@@ -57,12 +58,17 @@ jobs:
               path = os.path.join(os.environ["COLLAB_REPOSITORY"], folder)
               if not os.path.isdir(path):
                   continue
-              word1 = word(os.environ["GITHUB_REPOSITORY"] + path, nouns).capitalize()
-              word2 = word(os.environ["GITHUB_REPOSITORY"] + path, nouns).capitalize()
+              word1 = word("word1" + os.environ["GITHUB_REPOSITORY"] + path, nouns).capitalize()
+              word2 = word("word2" + os.environ["GITHUB_REPOSITORY"] + path, nouns).capitalize()
               operation = os.path.join(path, "Operation {} {}".format(word1, word2))
               os.makedirs(operation, exist_ok=True)
               for item in os.listdir(os.environ["GITHUB_REPOSITORY"]):
                   if not item.lower().startswith(folder.lower() + "_"):
                       continue
                   print(item, "->", operation)
+                  shutil.copy2(os.path.join(os.environ["GITHUB_REPOSITORY"], item), operation)
           EOF
+      - name: Push collab repo
+        run: |
+          cd "$COLLAB_REPOSITORY"
+          git status
