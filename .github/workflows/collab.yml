@@ -67,10 +67,10 @@ jobs:
                       continue
                   print(item, "->", operation)
                   shutil.copy2(os.path.join(os.environ["GITHUB_REPOSITORY"], item), operation)
-          author = word(os.environ["GITHUB_SHA"], adjectives) + " author"
-          commit = word(os.environ["GITHUB_SHA"], adjectives) + " commit"
+          author = word(os.environ["GITHUB_SHA"], adjectives).capitalize() + " author"
+          commit = word(os.environ["GITHUB_SHA"], adjectives).capitalize() + " commit"
           os.system("cd '{}' && git config user.name '{}' && git config user.email '{}'".format(os.environ["COLLAB_REPOSITORY"], author, author))
-          os.system("cd '{}' && git commit -m '{}'".format(os.environ["COLLAB_REPOSITORY"], commit))
+          os.system("cd '{}' && git add -A && git commit -m '{}'".format(os.environ["COLLAB_REPOSITORY"], commit))
           EOF
       - name: Execute operations
         run: |
