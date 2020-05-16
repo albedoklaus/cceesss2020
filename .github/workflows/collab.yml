@@ -25,7 +25,7 @@ jobs:
           git clone "git@github.com:$COLLAB_REPOSITORY" "$COLLAB_REPOSITORY"
           git clone "git@github.com:$GITHUB_REPOSITORY.git" "$GITHUB_REPOSITORY"
           find .
-      - name: Generate operation name
+      - name: Generate operations
         run: |
           python3 - << EOF
           import hashlib
@@ -50,8 +50,8 @@ jobs:
               hash = hashlib.sha256(string.encode())
               number = int(hash.hexdigest(), 16) % len(words)
               return words[number]
-          nouns = index("/usr/share/wordnet/index.noun")
           adjectives = index("/usr/share/wordnet/index.adj")
+          nouns = index("/usr/share/wordnet/index.noun")
           for folder in os.listdir(os.environ["COLLAB_REPOSITORY"]):
               if folder.startswith("."):
                   continue
@@ -67,8 +67,13 @@ jobs:
                       continue
                   print(item, "->", operation)
                   shutil.copy2(os.path.join(os.environ["GITHUB_REPOSITORY"], item), operation)
+          author = word(os.environ["GITHUB_SHA"], adjectives) + " author"
+          commit = word(os.environ["GITHUB_SHA"], adjectives) + " commit"
+          os.system("cd '{}' && git config user.name '{}' && git config user.email '{}'".format(os.environ["COLLAB_REPOSITORY"], author, author)
+          os.system("cd '{}' && git commit -m '{}'".format(commit)
           EOF
-      - name: Push collab repo
+      - name: Execute operations
         run: |
           cd "$COLLAB_REPOSITORY"
           git status
+          git push
