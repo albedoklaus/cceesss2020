@@ -1,5 +1,6 @@
 on: [push]
 
+
 jobs:
   collab:
     if: "contains(github.event.head_commit.message, '[collab]')"
