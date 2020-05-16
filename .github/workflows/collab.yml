@@ -1,6 +1,5 @@
 on: [push]
 
-
 env:
   COLLAB_USER: Xerox16
   COLLAB_REPO: CCEES-Exercises
@@ -29,6 +28,7 @@ jobs:
         run: |
           python3 - << EOF
           import hashlib
+          import os
           import secrets
           def index(filename):
               result = []
@@ -50,8 +50,15 @@ jobs:
               return words[number]
           nouns = index("/usr/share/wordnet/index.noun")
           adjectives = index("/usr/share/wordnet/index.adj")
-          word1 = word("word1", nouns)
-          word2 = word("word2", nouns)
-          word3 = word("word2", nouns)
+          for folder in os.listdir(os.environ["COLLAB_REPO"]):
+              folder = os.path.join(os.environ["COLLAB_REPO"], folder)
+              if not os.path.isdir(folder):
+                  continue
+              word1 = word("word1" + folder, nouns)
+              word2 = word("word2" + folder, nouns)
+              print(folder, "->", "Operation", word1, word2)
+          #word1 = word("word1", nouns)
+          #word2 = word("word2", nouns)
+          #word3 = word("word2", nouns)
           print(word1, word2, word3)
           EOF
