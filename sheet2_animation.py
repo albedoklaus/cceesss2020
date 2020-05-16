@@ -70,7 +70,7 @@ def plot_simple_bifurcation_diagram(mu, u):
     plt.fill_between([4, 3.56995], [1, 1],
                          alpha=0.1, label='chaotic')
     plt.legend()
-    plt.savefig("sheet02_mu0.3.png", dpi=600)
+    plt.savefig("sheet2_mu0.3.png", dpi=600)
 
 mu_result, u_result = compute_bifurcation(N_sample = 10)
 plot_simple_bifurcation_diagram(mu_result, u_result)
@@ -108,4 +108,4 @@ for u_0 in vals:
     artists.append([plot, text])
 
 ani = animation.ArtistAnimation(fig, artists, interval=100, blit=True)
-ani.save("animation.mp4")
+ani.save("sheet2_animation.mp4")
