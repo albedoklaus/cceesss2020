@@ -24,6 +24,8 @@ jobs:
           chmod 600 "$private_key"
           export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -i \"$private_key\""
           git clone "git@github.com:$COLLAB_USER/$COLLAB_REPO.git"
+          git clone "git@github.com:$GITHUB_REPOSITORY.git"
+          find .
       - name: Generate operation name
         run: |
           python3 - << EOF
@@ -51,14 +53,12 @@ jobs:
           nouns = index("/usr/share/wordnet/index.noun")
           adjectives = index("/usr/share/wordnet/index.adj")
           for folder in os.listdir(os.environ["COLLAB_REPO"]):
+              if folder.startswith("."):
+                  continue
               folder = os.path.join(os.environ["COLLAB_REPO"], folder)
               if not os.path.isdir(folder):
                   continue
-              word1 = word("word1" + folder, nouns)
-              word2 = word("word2" + folder, nouns)
+              word1 = word("word1_" + folder, nouns).capitalize()
+              word2 = word("word2_" + folder, nouns).capitalize()
               print(folder, "->", "Operation", word1, word2)
-          #word1 = word("word1", nouns)
-          #word2 = word("word2", nouns)
-          #word3 = word("word2", nouns)
-          print(word1, word2, word3)
           EOF
