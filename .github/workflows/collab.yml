@@ -51,8 +51,6 @@ jobs:
               return words[number]
           nouns = index("/usr/share/wordnet/index.noun")
           adjectives = index("/usr/share/wordnet/index.adj")
-          destination = os.environ["COLLAB_REPOSITORY"]
-          destination = os.environ["COLLAB_REPOSITORY"]
           for folder in os.listdir(os.environ["COLLAB_REPOSITORY"]):
               if folder.startswith("."):
                   continue
@@ -63,5 +61,8 @@ jobs:
               word2 = word(os.environ["GITHUB_REPOSITORY"] + path, nouns).capitalize()
               operation = os.path.join(path, "Operation {} {}".format(word1, word2))
               os.makedirs(operation, exist_ok=True)
-              find .
+              for item in os.listdir(os.environ["GITHUB_REPOSITORY"]):
+                  if not item.lower().startswith(folder.lower() + "_"):
+                      continue
+                  print(item, "->" operation)
           EOF
