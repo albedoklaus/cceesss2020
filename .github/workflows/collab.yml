@@ -1,5 +1,6 @@
 on: [push]
 
+
 jobs:
   collab:
     if: "contains(github.event.head_commit.message, '[collab]')"
@@ -45,8 +46,11 @@ jobs:
         env:
           COLLAB_DEPLOY_KEY: ${{ secrets.COLLAB_DEPLOY_KEY }}
         run: |
-          printf '%s\n' "$COLLAB_DEPLOY_KEY" | base64 --decode > id_ed25519
-          md5sum id_ed25519
-          chmod 600 id_ed25519
-          git clone -c core.sshCommand="ssh -o StrictHostKeyChecking=no -i \"$(pwd)/id_ed25519\"" "git@github.com:Xerox16/CCEES-Exercises.git"
+          private_key="$(pwd)/id_ed25519"
+          printf '%s\n' "$COLLAB_DEPLOY_KEY" | base64 --decode > "$private_key"
+          md5sum "$private_key"
+          chmod 600 "$private_key"
+          export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -i \"$private_key\""
+          #git clone -c core.sshCommand="ssh -o StrictHostKeyChecking=no -i \"$private_key\"" "git@github.com:Xerox16/CCEES-Exercises.git"
+          git clone "git@github.com:Xerox16/CCEES-Exercises.git"
           find .
