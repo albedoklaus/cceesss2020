@@ -1,0 +1,42 @@
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:buster
+    steps:
+      - name: Install dependencies
+        run: |
+          apt update
+          apt install -y python3 wordnet
+      - name: Generate operation name
+        run: |
+          python3 - << EOF
+          import hashlib
+          import secrets
+          def index(filename):
+              result = []
+              with open(filename) as fh:
+                  for line in fh:
+                      if line.startswith(" "):
+                          continue
+                      lemma, _, synset_cnt, *_ = line.split()
+                      if not 4 < len(lemma) < 10:
+                          continue
+                      if not lemma.isalpha():
+                          continue
+                      if int(synset_cnt) > 2:
+                          result.append(lemma)
+              return result
+          def word(string, words):
+              hash = hashlib.sha256(string.encode())
+              number = int(hash.hexdigest(), 16) % len(words)
+              return words[number]
+          nouns = index("/usr/share/wordnet/index.noun")
+          adjectives = index("/usr/share/wordnet/index.adj")
+          word1 = word("word1", nouns)
+          word2 = word("word2", nouns)
+          word3 = word("word2", nouns)
+          print(word1, word2, word3)
+          EOF
