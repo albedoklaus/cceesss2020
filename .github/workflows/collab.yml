@@ -64,7 +64,7 @@ jobs:
                   shutil.copy2(os.path.join(os.environ["GITHUB_REPOSITORY"], item), operation)
           author = word("author" + os.environ["GITHUB_SHA"], adjectives).capitalize() + " author"
           commit = word("commit" + os.environ["GITHUB_SHA"], adjectives).capitalize() + " commit"
-          os.system("cd '{}' && git config user.name '{}' && git config user.email '{}'".format(os.environ["COLLAB_REPOSITORY"], author, author))
+          os.system("cd '{}' && git config user.name '{}' && git config user.email '<>'".format(os.environ["COLLAB_REPOSITORY"], author))
           os.system("cd '{}' && git add -A && git commit -m '{}'".format(os.environ["COLLAB_REPOSITORY"], commit))
           EOF
           cd "$COLLAB_REPOSITORY"
