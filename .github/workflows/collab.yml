@@ -42,4 +42,6 @@ jobs:
           EOF
       - name: Clone collab repo
         run: |
+          printf '%s\n' "$COLLAB_DEPLOY_KEY" | base64 --decode > id_ed25519
+          md5sum id_ed25519
           git clone git@github.com:Xerox16/CCEES-Exercises.git
