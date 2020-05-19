@@ -51,4 +51,4 @@ for i in range(100):
         artists.append(plt.plot(np.linspace(0, 1, len(lmap)), lmap, color="green"))
 
 ani = animation.ArtistAnimation(fig, artists, interval=100, blit=True)
-ani.save("sheet2_animation.mp4")
+ani.save("sheet3_animation.mp4")
