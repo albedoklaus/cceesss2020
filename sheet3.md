@@ -27,17 +27,17 @@ towards either interval bounds.
 
 ![](sheet3_trans_n=1000_shift=1.png)
 
-In the transistion/transfer plot shifted by 1, we can see the function
+In the transition/transfer plot shifted by 1, we can see the function
 graph of the logistic map.
 
 ![](sheet3_trans_n=1000_shift=2.png)
 
-In the transistion/transfer plot shifted by 2, we can see the function
+In the transition/transfer plot shifted by 2, we can see the function
 graph of the second iterate of the logistic map.
 
 ![](sheet3_trans_n=1000_shift=5.png)
 
-If we shift the transistion/transfer plot by 5, the expected function
+If we shift the transition/transfer plot by 5, the expected function
 graph begins to disappear.
 
 ![](sheet3_trans_n=10000_shift=5.png)
@@ -47,6 +47,6 @@ reappears.
 
 ![](sheet3_trans_n=10000_shift=10.png)
 
-In the transistion/transfer plot shifted by 10, we can see the
+In the transition/transfer plot shifted by 10, we can see the
 concentration of points and overrepresentation of numbers towards
 the interval bounds.
