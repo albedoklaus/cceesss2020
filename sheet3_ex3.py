@@ -4,7 +4,6 @@ from os import urandom
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib.animation as animation
-plt.rcParams['animation.ffmpeg_path'] = r'A:\\Software\\ffmpeg'
 
 def logistic_map(u_i, mu):
     '''Define logistic map, note that mu can range from 0 to 4'''
