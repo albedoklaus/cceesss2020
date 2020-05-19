@@ -50,16 +50,10 @@ if __name__ == "__main__":
         plt.legend()
         plt.savefig(f"sheet3_plot_n={n}.png")
 
-        plt.close()
-        for method, numbers in data.items():
-            plt.plot(numbers[:-1], numbers[1:], label=method, linestyle="", marker=".", markersize=2)
-        plt.title(f"{n} random numbers between 0 and 1")
-        plt.legend()
-        plt.savefig(f"sheet3_trans_n={n}.png")
-
-        plt.close()
-        for method, numbers in data.items():
-            plt.plot(numbers[:-2], numbers[2:], label=method, linestyle="", marker=".", markersize=2)
-        plt.title(f"{n} random numbers between 0 and 1")
-        plt.legend()
-        plt.savefig(f"sheet3_trans2_n={n}.png")
+        for shift in [1, 2, 5, 10]:
+            plt.close()
+            for method, numbers in data.items():
+                plt.plot(numbers[:-shift], numbers[shift:], label=method, linestyle="", marker=".", markersize=2)
+            plt.title(f"{n} random numbers between 0 and 1, shifted by {shift}")
+            plt.legend()
+            plt.savefig(f"sheet3_trans_n={n}_shift={shift}.png")
