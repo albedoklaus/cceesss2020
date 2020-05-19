@@ -42,6 +42,7 @@ if __name__ == "__main__":
     for n in [10, 100, 1000, 10000]:
 
         data = generate_random_data(n)
+
         plt.close()
         for method, numbers in data.items():
             plt.plot(sorted(numbers), label=method)
@@ -55,3 +56,10 @@ if __name__ == "__main__":
         plt.title(f"{n} random numbers between 0 and 1")
         plt.legend()
         plt.savefig(f"sheet3_trans_n={n}.png")
+
+        plt.close()
+        for method, numbers in data.items():
+            plt.plot(numbers[:-2], numbers[2:], label=method, linestyle="", marker=".", markersize=2)
+        plt.title(f"{n} random numbers between 0 and 1")
+        plt.legend()
+        plt.savefig(f"sheet3_trans2_n={n}.png")
