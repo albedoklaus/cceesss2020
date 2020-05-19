@@ -31,7 +31,7 @@ for n in [1000, 10000]:
     plt.plot(rnd, color="orange", label="Random Function")
     plt.plot(ornd, color="blue", label="OS Random")
     plt.plot(lmap, color="green", label="Logistic Map")
-    plt.savefig("Plot_n={}".format(n))
+    plt.savefig("Plot_n={}.png".format(n))
 
 fig = plt.figure(figsize=(11.69, 8.27), dpi=200)
 artists = []
