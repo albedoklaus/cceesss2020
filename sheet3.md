@@ -24,3 +24,29 @@ behavior: Numbers close to 0 and 1 (so both ends of the interval) are
 overrepresentated. There is a steep slope at the middle of the curve
 which means we won't generate those numbers as frequently as the ones
 towards either interval bounds.
+
+![](sheet3_trans_n=10000_shift=1.png)
+
+In the transistion/transfer plot shifted by 1, we can see the function
+graph of the logistic map.
+
+![](sheet3_trans_n=10000_shift=2.png)
+
+In the transistion/transfer plot shifted by 2, we can see the function
+graph of the second iterate of the logistic map.
+
+![](sheet3_trans_n=1000_shift=5.png)
+
+If we shift the transistion/transfer plot by 5, the expected function
+graph begins to disappear.
+
+![](sheet3_trans_n=10000_shift=5.png)
+
+However, after increasing the number of points, the characteristic
+reappears.
+
+![](sheet3_trans_n=10000_shift=10.png)
+
+In the transistion/transfer plot shifted by 10, we can see the
+concentration of points and overrepresentation of numbers towards
+the interval bounds.
