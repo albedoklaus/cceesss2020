@@ -25,12 +25,12 @@ overrepresentated. There is a steep slope at the middle of the curve
 which means we won't generate those numbers as frequently as the ones
 towards either interval bounds.
 
-![](sheet3_trans_n=10000_shift=1.png)
+![](sheet3_trans_n=1000_shift=1.png)
 
 In the transistion/transfer plot shifted by 1, we can see the function
 graph of the logistic map.
 
-![](sheet3_trans_n=10000_shift=2.png)
+![](sheet3_trans_n=1000_shift=2.png)
 
 In the transistion/transfer plot shifted by 2, we can see the function
 graph of the second iterate of the logistic map.
