@@ -1,5 +1,9 @@
 # Exercise 3
 
+\lstinputlisting[language=Python]{sheet3_3.py}
+
+\newpage
+
 ![](sheet3_plot_n=10.png)
 
 Looking at 10 random numbers, we cannot spot any particular
