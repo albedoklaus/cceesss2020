@@ -1,10 +1,17 @@
-"""CCEES sheet 01
-
-Plots for exercises 1, 4 and 5
-"""
-
+import time
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.integrate import odeint
+from scipy.integrate import ode
+
+
+class Timer:
+    def __init__(self, name):
+        self.name = name
+    def __enter__(self):
+        self.time = time.time()
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        print(self.name, time.time() - self.time)
 
 
 def f(u, params):
@@ -40,7 +47,8 @@ def generate(u0, t0, deltaT, method, f, **cfg):
 
     # Iterate
     for i in range(1, cfg["steps"]):
-        print("{:.2f}%".format(i/cfg["steps"]*100), end="\r")
+        if not i % 1000:
+            print("{:.2f}%".format(i/cfg["steps"]*100), end="\r")
         u[i] = method(lambda u: f(u, cfg["params"]), u[i - 1], deltaT)
         if any(u[i] < cfg["min"]) or any(u[i] > cfg["max"]):
             break
@@ -67,9 +75,8 @@ def periodicBoundary2(y):
             y[i:]-= 2*np.pi
     return y
 
-def plot(file):
-    data = np.load(file)
-    print(data)
+def plot(filename):
+    data = np.load(filename)
     GraphU1 = data["array1"]
     GraphU2 = data["array2"]
     stroboscope, deltaT = data["array3"]
@@ -77,15 +84,37 @@ def plot(file):
     plt.close()
     plt.plot(periodicBoundary(GraphU1)[::stroboscope], GraphU2[::stroboscope], label=r"$\Delta\tau=$" + str(deltaT/np.pi) + r"$\pi$", linestyle="", linewidth=0.3, marker=".", markersize=0.25)
     plt.legend()
-    plt.savefig("sheet04_ex4.png", dpi=300)
+    plt.savefig(filename + ".png", dpi=300)
 
 if __name__ == "__main__":
     # Exercise 4
 
     omega = 0.8
     stroboscope = 1000
-    steps = 5e8
+    steps = int(1e7)
     deltaT = 2*np.pi / omega / stroboscope
-    SpinUp = generate([0, 0, 0], 0, deltaT, explicitEuler, f, steps=400, params={"gamma" : 0.1, "mu" : 1.15, "omega" : omega})
-    GraphU1, GraphU2, GraphT = generate(np.array(SpinUp).T[-1], 0, deltaT, explicitEuler, f, steps=int(steps), params={"gamma" : 0.1, "mu" : 1.15, "omega" : omega})
-    np.savez_compressed("data{}.npz".format(steps), array1=GraphU1, array2=GraphU2, array3=np.array([stroboscope, deltaT]))
+    params={"gamma" : 0.1, "mu" : 1.15, "omega" : omega}
+    filename = "data{}.npz".format(steps)
+    SpinUp = generate([0, 0, 0], 0, deltaT, explicitEuler, f, steps=400, params=params)
+    #with Timer("generate"):
+    #    GraphU1, GraphU2, GraphT = generate(np.array(SpinUp).T[-1], 0, deltaT, explicitEuler, f, steps=steps, params=params)
+    #np.savez_compressed(filename, array1=GraphU1, array2=GraphU2, array3=np.array([stroboscope, deltaT]))
+    #plot(filename)
+
+    def f(y, t):
+        """System for exercise 1"""
+
+        u1 = y[0]
+        u2 = y[1]
+        u3 = t
+        return u2, -2 * params["gamma"] * u2 - np.sin(u1) + params["mu"] * np.sin(params["omega"] * u3)
+
+    y0 = np.array(SpinUp).T[-1][0:2]
+    t0 = np.array(SpinUp).T[-1][2]
+    t = np.linspace(t0, t0 + steps * deltaT, steps)
+    with Timer("odeint"):
+        y = odeint(f, y0, t)
+    filename = "data_new{}.npz".format(steps)
+    np.savez_compressed(filename, array1=y.T[0], array2=y.T[1], array3=np.array([stroboscope, deltaT]))
+    plot(filename)
+
