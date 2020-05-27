@@ -68,23 +68,30 @@ def periodicBoundary(y):
     return y
 
 
-def plot(filename):
+def plot(filename, x=None, y=None):
     data = np.load(filename)
-    GraphU1 = data["array1"]
-    GraphU2 = data["array2"]
+    GraphU1 = np.array(data["array1"])
+    GraphU1 = periodicBoundary(GraphU1)
+    GraphU2 = np.array(data["array2"])
     stroboscope, deltaT = data["array3"]
     stroboscope = int(stroboscope)
     plt.close()
-    plt.plot(periodicBoundary(GraphU1)[::stroboscope], GraphU2[::stroboscope], label=r"$\Delta\tau=$" + str(deltaT/np.pi) + r"$\pi$", linestyle="", linewidth=0.3, marker=".", markersize=0.25)
+    if x is not None:
+        GraphU1[GraphU1 < x[0]] = np.nan
+        GraphU1[GraphU1 > x[1]] = np.nan
+    if y is not None:
+        GraphU2[GraphU2 < y[0]] = np.nan
+        GraphU2[GraphU2 > y[1]] = np.nan
+    plt.plot(GraphU1[::stroboscope], GraphU2[::stroboscope], label=r"$\Delta\tau=$" + str(deltaT/np.pi) + r"$\pi$", linestyle="", linewidth=0.3, marker=".", markersize=0.25)
     plt.legend()
-    plt.savefig(filename + ".png", dpi=300)
+    plt.savefig(filename + f"x={x}_y={y}.png", dpi=300)
 
 
 if __name__ == "__main__":
 
     omega = 0.8
     stroboscope = 1000
-    steps = int(1e5)
+    steps = int(1e7)
     deltaT = 2*np.pi / omega / stroboscope
     params={"gamma" : 0.1, "mu" : 1.15, "omega" : omega}
     filename = "data{}.npz".format(steps)
@@ -93,6 +100,7 @@ if __name__ == "__main__":
     #    GraphU1, GraphU2, GraphT = generate(np.array(SpinUp).T[-1], 0, deltaT, explicitEuler, f, steps=steps, params=params)
     #np.savez_compressed(filename, array1=GraphU1, array2=GraphU2, array3=np.array([stroboscope, deltaT]))
     #plot(filename)
+
 
     # Faster ODE solver scipy.integrate.odeint
 
@@ -104,12 +112,16 @@ if __name__ == "__main__":
         u3 = t
         return u2, -2 * params["gamma"] * u2 - np.sin(u1) + params["mu"] * np.sin(params["omega"] * u3)
 
-    y0 = np.array(SpinUp).T[-1][0:2]
-    t0 = np.array(SpinUp).T[-1][2]
-    t = np.linspace(t0, t0 + steps * deltaT, steps)
-    with Timer("odeint"):
-        y = scipy.integrate.odeint(f, y0, t)
+    #y0 = np.array(SpinUp).T[-1][0:2]
+    #t0 = np.array(SpinUp).T[-1][2]
+    #t = np.linspace(t0, t0 + steps * deltaT, steps)
+    #with Timer("odeint"):
+    #    y = scipy.integrate.odeint(f, y0, t)
     filename = "data_new{}.npz".format(steps)
-    np.savez_compressed(filename, array1=y.T[0], array2=y.T[1], array3=np.array([stroboscope, deltaT]))
-    plot(filename)
+    #np.savez_compressed(filename, array1=y.T[0], array2=y.T[1], array3=np.array([stroboscope, deltaT]))
+    #plot(filename)
+    #plot(filename, x=[0, 0.2], y=[1.7, 1.9])
+    #plot(filename, x=[1.8, 2.0], y=[0.5, 0.7])
+    plot(filename, x=[1.5, 2.5], y=[0.5, 1.0])
+    plot(filename, x=[1.9, 2.0], y=[0.72, 0.75])
 
