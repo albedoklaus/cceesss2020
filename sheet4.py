@@ -1,8 +1,8 @@
 import time
+
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.integrate import odeint
-from scipy.integrate import ode
+import scipy.integrate
 
 
 class Timer:
@@ -21,7 +21,6 @@ def f(u, params):
     u2 = u[1]
     u3 = u[2]
     return u2, -2 * params["gamma"] * u2 - np.sin(u1) + params["mu"] * np.sin(params["omega"] * u3), 1
-
 
 
 def explicitEuler(f, u, deltaT):
@@ -57,6 +56,7 @@ def generate(u0, t0, deltaT, method, f, **cfg):
     u = u[:i + 1]
     return [u[:, i] for i in range(len(u0))]
 
+
 def periodicBoundary(y):
     offset = 0.0
     for i in range(len(y)):
@@ -67,13 +67,6 @@ def periodicBoundary(y):
         y[i] = y[i] + offset
     return y
 
-def periodicBoundary2(y):
-    for i in range(len(y)):
-        if y[i] <= -np.pi:
-            y[i:]+= 2*np.pi
-        elif y[i] > np.pi:
-            y[i:]-= 2*np.pi
-    return y
 
 def plot(filename):
     data = np.load(filename)
@@ -86,12 +79,12 @@ def plot(filename):
     plt.legend()
     plt.savefig(filename + ".png", dpi=300)
 
+
 if __name__ == "__main__":
-    # Exercise 4
 
     omega = 0.8
     stroboscope = 1000
-    steps = int(1e7)
+    steps = int(1e5)
     deltaT = 2*np.pi / omega / stroboscope
     params={"gamma" : 0.1, "mu" : 1.15, "omega" : omega}
     filename = "data{}.npz".format(steps)
@@ -100,6 +93,8 @@ if __name__ == "__main__":
     #    GraphU1, GraphU2, GraphT = generate(np.array(SpinUp).T[-1], 0, deltaT, explicitEuler, f, steps=steps, params=params)
     #np.savez_compressed(filename, array1=GraphU1, array2=GraphU2, array3=np.array([stroboscope, deltaT]))
     #plot(filename)
+
+    # Faster ODE solver scipy.integrate.odeint
 
     def f(y, t):
         """System for exercise 1"""
@@ -113,7 +108,7 @@ if __name__ == "__main__":
     t0 = np.array(SpinUp).T[-1][2]
     t = np.linspace(t0, t0 + steps * deltaT, steps)
     with Timer("odeint"):
-        y = odeint(f, y0, t)
+        y = scipy.integrate.odeint(f, y0, t)
     filename = "data_new{}.npz".format(steps)
     np.savez_compressed(filename, array1=y.T[0], array2=y.T[1], array3=np.array([stroboscope, deltaT]))
     plot(filename)
