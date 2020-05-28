@@ -109,13 +109,13 @@ def data(f, dt, **opt):
 
 if __name__ == "__main__":
 
-    # Exercise 3
+    # Exercise 3a
     stroboscope = 1000
     steps = int(1e7)
     omega = 0.8
     dt = 2 * np.pi / omega / stroboscope
     opt = {
-        "caption": "ex3",
+        "caption": "ex3a",
         "params": {
             "gamma": 0.1,
             "mu": 1.15,
@@ -129,6 +129,25 @@ if __name__ == "__main__":
     plot(t, y, **opt)
     plot(t, y, **opt, xlim=[1.5, 2.5], ylim=[0.5, 1.0])
     plot(t, y, **opt, xlim=[1.9, 2.0], ylim=[0.72, 0.75])
+
+    # Exercise 3b
+    stroboscope = 1000
+    steps = int(1e7)
+    omega = 0.8
+    dt = 2 * np.pi / omega / stroboscope
+    opt = {
+        "caption": "ex3b",
+        "params": {
+            "gamma": 0.1,
+            "mu": 1.15,
+            "omega": omega,
+        },
+        "spinup": 400,
+        "steps": steps,
+        "stroboscope": stroboscope,
+    }
+    t, y = data(g, dt, **opt)
+    plot(t, y, **opt)
 
     # Exercise 4
     stroboscope = 1000
@@ -146,5 +165,5 @@ if __name__ == "__main__":
         "steps": steps,
         "stroboscope": stroboscope,
     }
-    t, y = data(g, dt, **opt)
+    t, y = data(f, dt, **opt)
     plot(t, y, **opt)
