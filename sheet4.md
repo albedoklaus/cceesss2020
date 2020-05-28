@@ -1,4 +1,13 @@
 # Exercise 3
+Legend:
+- "first"/"second" means a external forcing of first or second kind
+- "step" is the amount of stroboscopic points in the plot
+- "strob" is is the amount of time steps between each stroboscopic point
+  (time step size is given in the plot)
+- "mu" is the system parameter $\mu$
+- "spinup" is the amount of time steps before any recording of stroboscopic points starts
+- "x=..." and "y=..." is the chosen window of the plot for x=u1 and y=u2
+
 first step100000 strob1000 mu0.915 spinup200.npzx=None y=None
 
 ![](sheet4_ex3_first_step100000_strob1000_mu0.915_spinup200.npzx=None_y=None.png)
