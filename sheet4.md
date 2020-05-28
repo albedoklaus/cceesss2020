@@ -14,9 +14,7 @@
 
 ![](sheet4_ex3_first_step100000_strob1000_mu0.915_spinup200.npzx=None_y=None.png)
 
-<!--
-![](sheet4_ex3_first_step100000_strob1000_mu0.915_spinup400.npzx=[1.5, 2.5]_y=[0.5, 1.0].png)
--->
+![](sheet4_ex3_first_step100000_strob1000_mu0.915_spinup400.npzx=1.5, 2.5_y=0.5, 1.0.png)
 
 ![](sheet4_ex3_second_step100000_strob1000_mu1.15_spinup400.npzx=None_y=None.png)
 
@@ -34,9 +32,7 @@
 
 ![](sheet4_ex3_first_step100000_strob2000_mu1.15_spinup200.npzx=None_y=None.png)
 
-<!--
-![](sheet4_ex3_first_step100000_strob1000_mu0.915_spinup400.npzx=[1.9, 2.0]_y=[0.72, 0.75].png)
--->
+![](sheet4_ex3_first_step100000_strob1000_mu0.915_spinup400.npzx=1.9, 2.0_y=0.72, 0.75.png)
 
 ![](sheet4_ex3_second_step100000_strob2000_mu1.15_spinup800.npzx=None_y=None.png)
 
