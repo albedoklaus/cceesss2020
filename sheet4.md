@@ -25,7 +25,7 @@ The Periodicity has already been discovered in exercise 3, where the phase
 diagramm was plotted after applying a stroboscope.
 There, three distinct points can be observed (the trails again mean that 
 is hasn't fully converged yet).
-The phase diagramm shows that for \mu=0.90 the diagramm is roughly symmetric
-while with increasing \mu it shifts to the left. However, this trend violated
+The phase diagramm shows that for $\mu=0.90$ the diagramm is roughly symmetric
+while with increasing $\mu$ it shifts to the left. However, this trend violated
 by the splitting of lines e.g. the transition from a period 3 to a
-period 5 orbit seen at \mu=0.92.
+period 5 orbit seen at $\mu=0.92$.
