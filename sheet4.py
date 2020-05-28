@@ -1,127 +1,130 @@
-import time
+import os
+import re
 
 import matplotlib.pyplot as plt
 import numpy as np
 import scipy.integrate
 
 
-class Timer:
-    def __init__(self, name):
-        self.name = name
-    def __enter__(self):
-        self.time = time.time()
-    def __exit__(self, exc_type, exc_value, exc_traceback):
-        print(self.name, time.time() - self.time)
+def f(y, t, params):
+    """System"""
+
+    u1 = y[0]
+    u2 = y[1]
+    u3 = t
+    return u2, -2 * params["gamma"] * u2 - np.sin(u1) + params["mu"] * np.sin(params["omega"] * u3)
 
 
-def f(u, params):
-    """System for exercise 1"""
+def g(y, t, params):
+    """System 2nd kind"""
 
-    u1 = u[0]
-    u2 = u[1]
-    u3 = u[2]
-    return u2, -2 * params["gamma"] * u2 - np.sin(u1) + params["mu"] * np.sin(params["omega"] * u3), 1
-
-
-def explicitEuler(f, u, deltaT):
-    """Euler method, numerical procedure for solving ordinary differential equations"""
-
-    return np.array(u) + deltaT * np.array(f(u))
+    u1 = y[0]
+    u2 = y[1]
+    u3 = t
+    return u2, -2 * params["gamma"] * u2 - (1 - params["mu"] * np.sin(params["omega"] * u3)) * np.sin(u1)
 
 
-def generate(u0, t0, deltaT, method, f, **cfg):
-    """Generate plot data via iteration"""
+def periodic_boundary(y):
+    """Pendelüberschlag korrigieren"""
 
-    # Set default values for arguments
-    cfg.setdefault("params", None)
-    cfg.setdefault("steps", 1000)
-    cfg.setdefault("min", -np.inf)
-    cfg.setdefault("max", np.inf)
-
-    # Initialize arrays
-    t = np.empty((cfg["steps"],))
-    t[0] = t0
-    u = np.empty((cfg["steps"], len(u0)))
-    u[0] = u0
-
-    # Iterate
-    for i in range(1, cfg["steps"]):
-        if not i % 1000:
-            print("{:.2f}%".format(i/cfg["steps"]*100), end="\r")
-        u[i] = method(lambda u: f(u, cfg["params"]), u[i - 1], deltaT)
-        if any(u[i] < cfg["min"]) or any(u[i] > cfg["max"]):
-            break
-
-    # Crop array if necessary and return
-    u = u[:i + 1]
-    return [u[:, i] for i in range(len(u0))]
-
-
-def periodicBoundary(y):
     offset = 0.0
+
     for i in range(len(y)):
+
         while y[i] + offset <= -np.pi:
             offset += 2*np.pi
+
         while y[i] + offset > np.pi:
             offset -= 2*np.pi
+
         y[i] = y[i] + offset
+
     return y
 
 
-def plot(filename, x=None, y=None):
-    data = np.load(filename)
-    GraphU1 = np.array(data["array1"])
-    GraphU1 = periodicBoundary(GraphU1)
-    GraphU2 = np.array(data["array2"])
-    stroboscope, deltaT = data["array3"]
-    stroboscope = int(stroboscope)
+def generate(f, t0, y0, dt, **opt):
+    """Generate"""
+
+    opt.setdefault("caption", "")
+    opt.setdefault("params", {})
+    opt.setdefault("spinup", 0)
+    opt.setdefault("steps", 1000)
+
+    f_ = lambda y, t: f(y, t, opt["params"])
+
+    if opt["spinup"]:
+        steps = opt["spinup"]
+        t = np.linspace(t0, t0 + steps * dt, steps + 1)
+        y = scipy.integrate.odeint(f_, y0, t)
+        t0 = t[-1]
+        y0 = y[-1]
+
+    steps = opt["steps"]
+    t = np.linspace(t0, t0 + steps * dt, steps + 1)
+    y = scipy.integrate.odeint(f_, y0, t)
+
+    return t, y
+
+
+def plot(t, y, **opt):
+    """Plot"""
+
+    opt.setdefault("xlim", None)
+    opt.setdefault("ylim", None)
+
+    if os.path.isfile(filename(opt) + ".png"):
+        return
+
+    y.T[0] = periodic_boundary(y.T[0])
+    if opt["xlim"] is not None:
+        y.T[0][y.T[0] < opt["xlim"][0]] = np.nan
+        y.T[0][y.T[0] > opt["xlim"][1]] = np.nan
+    if opt["ylim"] is not None:
+        y.T[1][y.T[1] < opt["ylim"][0]] = np.nan
+        y.T[1][y.T[1] > opt["ylim"][1]] = np.nan
+
     plt.close()
-    if x is not None:
-        GraphU1[GraphU1 < x[0]] = np.nan
-        GraphU1[GraphU1 > x[1]] = np.nan
-    if y is not None:
-        GraphU2[GraphU2 < y[0]] = np.nan
-        GraphU2[GraphU2 > y[1]] = np.nan
-    plt.plot(GraphU1[::stroboscope], GraphU2[::stroboscope], label=r"$\Delta\tau=$" + str(deltaT/np.pi) + r"$\pi$", linestyle="", linewidth=0.3, marker=".", markersize=0.25)
+    plt.plot(y.T[0][::opt["stroboscope"]], y.T[1][::opt["stroboscope"]], linestyle="", marker=".", markersize=0.2)
     plt.legend()
-    plt.savefig(filename + f"x={x}_y={y}.png", dpi=300)
+    plt.savefig(filename(opt) + ".png", dpi=300)
+
+
+def filename(opt):
+    """Dateiname"""
+
+    return "sheet4_" + re.sub(r"[^a-zA-Z0-9.]", "_", str(opt))
+
+
+def data(dt, **opt):
+    """Daten"""
+
+    if not os.path.isfile(filename(opt) + ".npz"):
+        t, y = generate(f, 0, [0, 0], dt, **opt)
+        np.savez_compressed(filename(opt), t=t, y=y)
+    else:
+        data = np.load(filename(opt) + ".npz")
+        t, y = data["t"], data["y"]
+    return t, y
 
 
 if __name__ == "__main__":
 
-    omega = 0.8
     stroboscope = 1000
     steps = int(1e7)
-    deltaT = 2*np.pi / omega / stroboscope
-    params={"gamma" : 0.1, "mu" : 1.15, "omega" : omega}
-    filename = "data{}.npz".format(steps)
-    SpinUp = generate([0, 0, 0], 0, deltaT, explicitEuler, f, steps=400, params=params)
-    #with Timer("generate"):
-    #    GraphU1, GraphU2, GraphT = generate(np.array(SpinUp).T[-1], 0, deltaT, explicitEuler, f, steps=steps, params=params)
-    #np.savez_compressed(filename, array1=GraphU1, array2=GraphU2, array3=np.array([stroboscope, deltaT]))
-    #plot(filename)
-
-
-    # Faster ODE solver scipy.integrate.odeint
-
-    def f(y, t):
-        """System for exercise 1"""
-
-        u1 = y[0]
-        u2 = y[1]
-        u3 = t
-        return u2, -2 * params["gamma"] * u2 - np.sin(u1) + params["mu"] * np.sin(params["omega"] * u3)
-
-    #y0 = np.array(SpinUp).T[-1][0:2]
-    #t0 = np.array(SpinUp).T[-1][2]
-    #t = np.linspace(t0, t0 + steps * deltaT, steps)
-    #with Timer("odeint"):
-    #    y = scipy.integrate.odeint(f, y0, t)
-    filename = "data_new{}.npz".format(steps)
-    #np.savez_compressed(filename, array1=y.T[0], array2=y.T[1], array3=np.array([stroboscope, deltaT]))
-    #plot(filename)
-    #plot(filename, x=[0, 0.2], y=[1.7, 1.9])
-    #plot(filename, x=[1.8, 2.0], y=[0.5, 0.7])
-    plot(filename, x=[1.5, 2.5], y=[0.5, 1.0])
-    plot(filename, x=[1.9, 2.0], y=[0.72, 0.75])
-
+    omega = 0.8
+    dt = 2 * np.pi / omega / stroboscope
+    opt = {
+        "caption": "ex3",
+        "params": {
+            "gamma": 0.1,
+            "mu": 1.15,
+            "omega": omega,
+        },
+        "spinup": 400,
+        "steps": steps,
+        "stroboscope": stroboscope,
+    }
+    t, y = data(dt, **opt)
+    plot(t, y, **opt)
+    plot(t, y, **opt, xlim=[1.5, 2.5], ylim=[0.5, 1.0])
+    plot(t, y, **opt, xlim=[1.9, 2.0], ylim=[0.72, 0.75])
