@@ -95,7 +95,7 @@ def filename(opt):
     return "sheet4_" + re.sub(r"[^a-zA-Z0-9.]", "_", str(opt))
 
 
-def data(dt, **opt):
+def data(f, dt, **opt):
     """Daten"""
 
     if not os.path.isfile(filename(opt) + ".npz"):
@@ -109,6 +109,7 @@ def data(dt, **opt):
 
 if __name__ == "__main__":
 
+    # Exercise 3
     stroboscope = 1000
     steps = int(1e7)
     omega = 0.8
@@ -124,7 +125,26 @@ if __name__ == "__main__":
         "steps": steps,
         "stroboscope": stroboscope,
     }
-    t, y = data(dt, **opt)
+    t, y = data(f, dt, **opt)
     plot(t, y, **opt)
     plot(t, y, **opt, xlim=[1.5, 2.5], ylim=[0.5, 1.0])
     plot(t, y, **opt, xlim=[1.9, 2.0], ylim=[0.72, 0.75])
+
+    # Exercise 4
+    stroboscope = 1000
+    steps = int(1e7)
+    omega = 0.8
+    dt = 2 * np.pi / omega / stroboscope
+    opt = {
+        "caption": "ex4",
+        "params": {
+            "gamma": 0.1,
+            "mu": 0.915,
+            "omega": omega,
+        },
+        "spinup": 400,
+        "steps": steps,
+        "stroboscope": stroboscope,
+    }
+    t, y = data(g, dt, **opt)
+    plot(t, y, **opt)
