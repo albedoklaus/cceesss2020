@@ -116,14 +116,16 @@ def plot_phase_diagram(x, y, z, args, xlim = [-np.pi, np.pi], ylim = [-1,1], zli
     ax.set_ylim([-70, 70])
     ax.set_zlim([0, 50])
     ax.set_title('Lorenz Attractor: Pr ={:.0f}, r={:.2f}, b ={:.2f}'.format(args[0], args[1], args[2]))
+    ax.add_collection(colorline(x, y, z, cmap='copper', linewidth=0.5))
 
     if animate: 
         plt.axis('off')
-        import matplotlib.animation as animation
-        ani = animation.FuncAnimation(fig, anifunc, 36, interval=1000, fargs=[ax, x, y, z, cmap])
-        ani.save("sheet5_ex1_phase_diagramm.mp4")
+        for angle in range(360):
+            ax.view_init(elev=30*np.sin(2*np.pi*angle/360), azim=angle)
+            plt.savefig("videoframes/frame{}.png".format(angle))
+        import sheet5_video
+        sheet5_video.generate_video("videoframes")
     else:
-        colorline(x, y, z, cmap=cmap, linewidth=0.5)
         ax.scatter(x, z, zdir='y', c=np.linspace(0.0, 1.0, len(x)), cmap=cmap, s=0.02, zs=70)
         ax.scatter(y, z, zdir='x', c=np.linspace(0.0, 1.0, len(x)), cmap=cmap, s=0.02, zs=-70)
         ax.scatter(x, y, zdir='z', c=np.linspace(0.0, 1.0, len(x)), cmap=cmap, s=0.02, zs=0)
@@ -168,5 +170,5 @@ t_span = [0., 100]
 
 sol, path = record(lorenz, u0, t_span, epsilon=epsilon, args=args)
 
-#plot_phase_diagram(sol.y[0], sol.y[1], sol.y[2], args)
+plot_phase_diagram(sol.y[0], sol.y[1], sol.y[2], args)
 plot_phase_diagram(sol.y[0], sol.y[1], sol.y[2], args, animate=True)
