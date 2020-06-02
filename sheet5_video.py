@@ -39,6 +39,6 @@ def rename(src, regexfilename, dest="temp"):
         copyfile(os.path.join(src, numbers[keys[i]]), os.path.join(dest, "frame{}.png".format(i)))
 
 if __name__ == "__main__":
-    #generate_frames("test")
+    #generate_frames()
     rename("Data", r"bitmap_r([0-9]+\.[0-9]+).png")
     generate_video()
