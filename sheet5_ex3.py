@@ -98,13 +98,13 @@ def plot_colormap(bitmap, a, c, Pr, r, b):
     
     ax.set_ylabel('$u_2$')
     ax.set_xlabel('$u_1$')
-    ax.set_title('$u_3$ = {}, Pr = {}, r = {}, b = {}'.format(c, Pr, r, b))
+    ax.set_title('$u_3$ = {}, Pr = {}, r = {:.3f}, b = {}'.format(c, Pr, r, b))
     
     # make a color bar
     cbar = fig.colorbar(img, cmap=cmap, norm=norm, boundaries=bounds, ticks=ticks)
     
     cbar.ax.set_yticklabels(['Converged to $u_0$', 'Converged to $u_+$', 'Converged to $u_-$', 'Did not converge'])  # horizontal colorbar
-    plt.savefig("Data/bitmap_r{}.png".format(r))
+    plt.savefig("Data/bitmap_r{:.3f}.png".format(r), bbox_inches="tight")
 
 def createPlot(r):
     #Initial values of ODE
@@ -127,7 +127,7 @@ def createPlot(r):
     #Critical distance to determine whether trajectory has converged to FP
     #Square it because we use squared distance
     crit_dist = 1e-8
-
+    r = round(r, 3)
     args = [Pr, r, b]
 
     try:
@@ -136,10 +136,10 @@ def createPlot(r):
     except FileNotFoundError:
         _, bitmap = run(a, b, c, r, grid_resolution, crit_dist, args, epsilon, t_span)
     finally:
-        plot_colormap(bitmap, a, c, *args)  
+        plot_colormap(bitmap, a, c, *args)
 
 if __name__ == "__main__":
-    r = np.arange(1, 25.5, step=0.5)
+    r = np.arange(1, 25.5, 0.025)
     from multiprocessing import Pool
-    with Pool(processes=7) as pool:
+    with Pool(processes=8) as pool:
         pool.map(createPlot, r)
