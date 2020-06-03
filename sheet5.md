@@ -1,5 +1,7 @@
+# Exercise 3
+
 For this exercise we chose a grid of starting points within the section $[-30, 30]\bigotimes[-30, 30]$ resulting in 900 trajectories being calculated for each time step.
-The distances to the fixpoints $u_0, u_+ and u_-$ where monitored and, when below the theshold of $10^{-4}$, marked according to the respective fixpoint.
+The distances to the fixpoints $u_0$, $u_+$ and $u_-$ where monitored and, when below the theshold of $10^{-4}$, marked according to the respective fixpoint.
 Here is a collection of bitmaps for interesting values of r:
 
 ![](sheet5_ex3_r1.050.png)
