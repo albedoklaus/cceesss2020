@@ -48,7 +48,7 @@ def run(a, b, c, r, grid_resolution, crit_dist, args, epsilon, t_span):
     #Fixpoints as functions of lorenz map arguments
     fp = [np.array([0,0,0]), np.array([ np.sqrt(b*(r-1)), np.sqrt(b*(r-1)), r-1]), np.array([-np.sqrt(b*(r-1)),-np.sqrt(b*(r-1)), r-1])] 
 
-    #Allocating this memory beforehand also saves a few µs per call
+    #Allocating this memory beforehand also saves a few microseconds per call
     event_buf = np.zeros(3, dtype=np.float32)
 
     #Condition to terminate integration
