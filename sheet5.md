@@ -2,7 +2,7 @@ For this exercise we chose a grid of starting points within the section $[-30, 3
 The distances to the fixpoints $u_0, u_+ and u_-$ where monitored and, when below the theshold of $10^{-4}$, marked according to the respective fixpoint.
 Here is a collection of bitmaps for interesting values of r:
 
-![](sheet5_ex3_r1.0575.png)
+![](sheet5_ex3_r1.050.png)
 
 ![](sheet5_ex3_r1.075.png)
 
