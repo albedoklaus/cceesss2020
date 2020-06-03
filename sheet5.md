@@ -22,9 +22,9 @@ Here is a collection of bitmaps for interesting values of r:
 
 ![](sheet5_ex3_r18.825.png)
 
-Additionally, we have created a video consisting of 980 frames showing the transformative nature of this system depending on increasing r:
+\newpage
 
-[https://i.imgur.com/hP5EFrV.mp4](https://i.imgur.com/hP5EFrV.mp4)
+Additionally, we have created an animation consisting of 980 frames showing the transformative nature of this system depending on increasing r: [https://i.imgur.com/hP5EFrV.mp4](https://i.imgur.com/hP5EFrV.mp4)
 
 At $r=1$, two point converge to $u_0$ while all other points do not converge at all. 
 From $r=1$ to $r=1.3$, areas of convergence to $u_+$ and $u_-$ are forming. 
@@ -40,4 +40,3 @@ Therefore, a longer simulation time could lead to more trajectories converging.
 Cycles produced by the strange attractor for larger values of r were also not investigated and not plotted.
 
 \lstinputlisting[language=Python]{sheet5_ex3.py}
-
