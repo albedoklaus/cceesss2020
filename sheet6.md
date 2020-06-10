@@ -1,5 +1,9 @@
 # Exercise 1
 
+i)
+
+\includegraphics[width=0.5\textwidth]{sheet6_1i.png}
+
 \begin{tabular}{c|cc}
   $n$ & $N_{\epsilon}$ & $\frac{1}{\epsilon}$ \\\hline
   $0$ & $1$ & $1$ \\
@@ -11,6 +15,10 @@
 \end{tabular}
 
 $$ \Rightarrow d = \lim_{n \rightarrow \infty} \frac{n \log(5)}{n \log(3)} = 1.465$$
+
+ii)
+
+\includegraphics[width=0.5\textwidth]{sheet6_1ii.png}
 
 \begin{tabular}{c|cc}
   $n$ & $N_{\epsilon}$ & $\frac{1}{\epsilon}$ \\\hline
