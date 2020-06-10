@@ -61,7 +61,7 @@ jobs:
             printf '%s\n' "Run pandoc for $mdfile"
             pandoc "$mdfile" --metadata-file="$metadata" --standalone -o "$(basename "$mdfile" .md).tex"
           done
-      - name: Install required packages with texliveonfly
+      - name: Test TeX and install required packages with texliveonfly
         run: |
           PATH="${PATH}:$(cd /usr/local/texlive/*/bin/x86_64-linux && pwd)"
           for texfile in *.tex
@@ -76,7 +76,10 @@ jobs:
           latexmk -pdf -pdflatex="pdflatex -interaction=nonstopmode -halt-on-error" *.tex
           rm -rf build
           mkdir -p build
-          mv *.pdf build
+          for texfile in *.tex
+          do
+            mv "$(basename "$texfile" .tex).pdf" build
+          done
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
