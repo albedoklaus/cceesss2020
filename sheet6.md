@@ -1,7 +1,7 @@
 # Exercise 1
 
 \begin{table}[]
-\begin{tabular}[c|cc]
+\begin{tabular}{c|cc}
   $n$ & $N_{\epsilon}$ & $\frac{1}{\epsilon}$ \\\hline
   $0$ & $1$ & $1$ \\
   $1$ & $5$ & $3$ \\
@@ -15,7 +15,7 @@
 $$ \Rightarrow d = \lim_{n \rightarrow \infty} \frac{n \log(5)}{n \log(3)} = 1.465$$
 
 \begin{table}[]
-\begin{tabular}[c|cc]
+\begin{tabular}{c|cc}
   $n$ & $N_{\epsilon}$ & $\frac{1}{\epsilon}$ \\\hline
   $0$ & $1$ & $1$ \\
   $1$ & $8$ & $4$ \\
