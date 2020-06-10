@@ -1,5 +1,6 @@
 header-includes: |
   \usepackage[a4paper,top=20mm,left=15mm,right=15mm,bottom=30mm,headsep=10mm,footskip=20mm]{geometry}
+  \usepackage{pdfpages}
   \usepackage{xcolor}
   \usepackage{listings}
   \definecolor{codegreen}{rgb}{0,0.6,0}
