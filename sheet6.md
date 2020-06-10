@@ -2,7 +2,7 @@
 
 i)
 
-\includegraphics[width=0.5\textwidth]{sheet6_1i.png}
+\includegraphics[width=0.25\textwidth]{sheet6_1i.png}
 
 \begin{tabular}{c|cc}
   $n$ & $N_{\epsilon}$ & $\frac{1}{\epsilon}$ \\\hline
@@ -18,7 +18,7 @@ $$ \Rightarrow d = \lim_{n \rightarrow \infty} \frac{n \log(5)}{n \log(3)} = 1.4
 
 ii)
 
-\includegraphics[width=0.5\textwidth]{sheet6_1ii.png}
+\includegraphics[width=0.25\textwidth]{sheet6_1ii.png}
 
 \begin{tabular}{c|cc}
   $n$ & $N_{\epsilon}$ & $\frac{1}{\epsilon}$ \\\hline
