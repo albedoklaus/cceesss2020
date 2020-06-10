@@ -2,7 +2,7 @@
 
 \begin{table}[]
 \begin{tabular}{c|cc}
-  n & N_\epsilon & \frac{1}{\epsilon} \\\hline
+  $n$ & $N_\epsilon$ & $\frac{1}{\epsilon}$ \\\hline
   0 & 1 & 1 \\
   1 & 5 & 3 \\
   2 & 5^2 & 3^2 \\
@@ -16,7 +16,7 @@ $$ \Rightarrow d = \lim_{n \rightarrow \infty} \frac{n \log(5)}{n \log(3)} = 1.4
 
 \begin{table}[]
 \begin{tabular}{c|cc}
-  n & N_\epsilon & \frac{1}{\epsilon} \\\hline
+  $n$ & $N_\epsilon$ & $\frac{1}{\epsilon}$ \\\hline
   0 & 1 & 1 \\
   1 & 8 & 4 \\
   2 & 8^2 & 4^2 \\
