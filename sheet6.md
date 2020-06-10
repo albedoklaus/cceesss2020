@@ -1,5 +1,5 @@
 blabla1
 
-\includepdf{sheet6\_mean\_slope.pdf}
+\includepdf{sheet6_mean_slope.pdf}
 
 blabla2
